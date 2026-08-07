@@ -1,0 +1,1561 @@
+/* =========================================================================
+   Conexão Tech — folha de estilo compartilhada
+   UniFil + Sebrae · Cambé · Ibiporã · Arapongas · Rolândia
+   Usada pela home (index.html) e pelas 4 páginas de cidade.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   1. Tokens de design (paleta extraída da arte oficial do projeto)
+   ---------------------------------------------------------------------- */
+:root {
+  /* Roxos profundos — base do degradê da arte */
+  --ink-950: #0d0725;
+  --ink-900: #150b33;
+  --ink-800: #1e0f45;
+  --ink-700: #2a1560;
+  --ink-600: #362080;
+
+  /* Azuis de transição */
+  --indigo-700: #23276e;
+  --indigo-600: #2b3a8f;
+
+  /* Turquesa — cor de destaque da arte */
+  --teal-600: #14b8ae;
+  --teal-500: #22cfc4;
+  --teal-400: #3bdcd0;
+  --teal-300: #6fe5dc;
+  --teal-200: #a6f0ea;
+  --teal-100: #cff7f3;
+
+  /* Texto */
+  --text: #eef7f6;
+  --text-soft: #c3cde4;
+  --text-muted: #96a2c2;
+
+  /* Superfícies */
+  --surface: rgba(255, 255, 255, 0.038);
+  --surface-strong: rgba(255, 255, 255, 0.07);
+  --border: rgba(166, 240, 234, 0.16);
+  --border-strong: rgba(166, 240, 234, 0.34);
+
+  /* Tipografia */
+  --font-display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Consolas", ui-monospace, monospace;
+
+  /* Métrica */
+  --header-h: 74px;
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --maxw: 1180px;
+
+  --shadow-soft: 0 18px 50px -20px rgba(0, 0, 0, 0.75);
+  --shadow-glow: 0 0 0 1px rgba(59, 220, 208, 0.25), 0 14px 44px -14px rgba(34, 207, 196, 0.5);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* -------------------------------------------------------------------------
+   2. Reset enxuto
+   ---------------------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  /* impede que o header fixo cubra o título da seção ancorada */
+  scroll-padding-top: calc(var(--header-h) + 18px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background-color: var(--ink-900);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Degradê + textura hexadecimal que reproduzem o fundo da arte oficial */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(120% 90% at 88% -10%, rgba(34, 207, 196, 0.55) 0%, rgba(34, 207, 196, 0) 55%),
+    radial-gradient(90% 70% at 12% 8%, rgba(54, 32, 128, 0.75) 0%, rgba(54, 32, 128, 0) 60%),
+    linear-gradient(160deg, #1a2f66 0%, #241455 38%, #1b0e42 68%, #120830 100%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='260'%3E%3Cg font-family='monospace' font-size='26' font-weight='700' fill='%23ffffff' fill-opacity='0.035'%3E%3Ctext x='4' y='34'%3EA123AB2%3C/text%3E%3Ctext x='232' y='34'%3E8E67E6%3C/text%3E%3Ctext x='58' y='96'%3E907EF78 4BC%3C/text%3E%3Ctext x='300' y='96'%3E0F3E%3C/text%3E%3Ctext x='0' y='158'%3E2 AB34B29 78E6%3C/text%3E%3Ctext x='276' y='158'%3EC4BD5%3C/text%3E%3Ctext x='36' y='220'%3E45 C3A%3C/text%3E%3Ctext x='170' y='220'%3EEE6D 78E1%3C/text%3E%3C/g%3E%3C/svg%3E");
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--teal-300); text-decoration: none; }
+a:hover { color: var(--teal-200); }
+ul { margin: 0; padding: 0; list-style: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.14;
+  margin: 0;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+p { margin: 0; }
+
+/* -------------------------------------------------------------------------
+   3. Acessibilidade
+   ---------------------------------------------------------------------- */
+:focus-visible {
+  outline: 3px solid var(--teal-300);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  z-index: 200;
+  padding: 12px 20px;
+  background: var(--teal-400);
+  color: var(--ink-900);
+  font-weight: 700;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  transition: top 0.2s var(--ease);
+}
+.skip-link:focus { top: 0; color: var(--ink-900); }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* -------------------------------------------------------------------------
+   4. Utilidades de layout
+   ---------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.section { padding-block: 104px; position: relative; }
+.section--tight { padding-block: 76px; }
+
+.section-head { max-width: 720px; margin-bottom: 52px; }
+.section-head--center { margin-inline: auto; text-align: center; }
+
+/* Rótulo monoespaçado "// seção" — remete ao tema de programação da arte */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.eyebrow::before { content: "//"; opacity: 0.65; }
+.eyebrow--center { justify-content: center; }
+
+.section-title {
+  font-size: clamp(1.9rem, 1.2rem + 2.6vw, 2.85rem);
+  margin-bottom: 18px;
+}
+
+.section-lead {
+  font-size: clamp(1rem, 0.96rem + 0.25vw, 1.12rem);
+  color: var(--text-soft);
+}
+.section-lead--gap { margin-bottom: 34px; }
+
+.text-teal { color: var(--teal-300); }
+
+/* -------------------------------------------------------------------------
+   5. Botões
+   ---------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease),
+              background-color 0.22s var(--ease), border-color 0.22s var(--ease),
+              color 0.22s var(--ease);
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--teal-400), var(--teal-600));
+  color: #06232b;
+  box-shadow: var(--shadow-glow);
+}
+.btn--primary:hover {
+  color: #06232b;
+  box-shadow: 0 0 0 1px rgba(59, 220, 208, 0.4), 0 20px 52px -14px rgba(34, 207, 196, 0.7);
+}
+
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-strong);
+  color: var(--text);
+  backdrop-filter: blur(6px);
+}
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--teal-300);
+  color: var(--text);
+}
+
+.btn--lg { padding: 17px 38px; font-size: 1.06rem; }
+.btn--block { display: flex; width: 100%; }
+
+.btn__icon { width: 18px; height: 18px; flex: none; }
+
+/* -------------------------------------------------------------------------
+   6. Header fixo (presente em todas as páginas do site)
+   ---------------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  background: rgba(16, 8, 40, 0.55);
+  border-bottom: 1px solid rgba(166, 240, 234, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.site-header.is-scrolled {
+  background: rgba(13, 7, 32, 0.9);
+  border-bottom-color: rgba(166, 240, 234, 0.2);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Marca */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-right: auto;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.09rem;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.brand:hover { color: var(--text); }
+.brand__mark { width: 34px; height: 34px; flex: none; }
+.brand__name span { color: var(--teal-300); }
+
+/* Navegação */
+.nav { display: flex; align-items: center; gap: 4px; }
+
+.nav__link {
+  position: relative;
+  padding: 9px 13px;
+  border-radius: var(--radius-sm);
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+.nav__link:hover,
+.nav__link[aria-current="page"] {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.header-cta { margin-left: 10px; padding: 11px 22px; font-size: 0.92rem; }
+
+/* Botão hambúrguer */
+.nav-toggle {
+  display: none;
+  width: 44px; height: 44px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  position: relative;
+}
+.nav-toggle span {
+  position: absolute;
+  left: 50%;
+  width: 20px; height: 2px;
+  margin-left: -10px;
+  border-radius: 2px;
+  background: var(--text);
+  transition: transform 0.28s var(--ease), opacity 0.2s var(--ease), top 0.28s var(--ease);
+}
+.nav-toggle span:nth-child(1) { top: 15px; }
+.nav-toggle span:nth-child(2) { top: 21px; }
+.nav-toggle span:nth-child(3) { top: 27px; }
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+/* -------------------------------------------------------------------------
+   7. Hero
+   ---------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  padding-top: calc(var(--header-h) + 76px);
+  padding-bottom: 96px;
+}
+
+/* Moldura arredondada — mesmo recurso gráfico da arte de divulgação */
+.hero__frame {
+  position: relative;
+  border: 1px solid rgba(166, 240, 234, 0.16);
+  border-radius: 30px;
+  padding: clamp(26px, 3.2vw, 52px);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012));
+  box-shadow: var(--shadow-soft);
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 60px);
+  align-items: center;
+}
+
+.hero__year {
+  font-family: var(--font-mono);
+  font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.44em;
+  color: var(--teal-200);
+  margin-bottom: 14px;
+}
+
+.hero__title {
+  font-size: clamp(2.6rem, 1.5rem + 4.6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.02;
+  margin-bottom: 20px;
+}
+.hero__title span {
+  background: linear-gradient(120deg, var(--teal-200), var(--teal-400) 55%, var(--teal-600));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__tagline {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.12rem);
+  color: var(--teal-100);
+  margin-bottom: 24px;
+}
+
+.hero__text {
+  font-size: clamp(1rem, 0.96rem + 0.3vw, 1.14rem);
+  color: var(--text-soft);
+  max-width: 54ch;
+  margin-bottom: 32px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+/* Estatísticas com contador animado */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+}
+
+/* O <dt> vem antes do <dd> no HTML (ordem exigida numa lista de definição);
+   a inversão visual — valor acima do rótulo — é feita aqui. */
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+
+.stat__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--teal-300);
+  letter-spacing: -0.03em;
+}
+
+.stat__label {
+  margin-top: 8px;
+  font-size: 0.83rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+/* -------------------------------------------------------------------------
+   8. Mapa (Leaflet) — substitui a ilustração de pontos conectados
+   ---------------------------------------------------------------------- */
+.map-panel {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: rgba(9, 5, 24, 0.6);
+  padding: 14px;
+  box-shadow: var(--shadow-soft);
+}
+
+.map-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 6px 14px;
+}
+
+.map-panel__title {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+}
+
+.map-panel__dots { display: flex; gap: 6px; }
+.map-panel__dots i {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: rgba(166, 240, 234, 0.28);
+}
+.map-panel__dots i:first-child { background: var(--teal-400); }
+
+#mapa {
+  height: 430px;
+  border-radius: var(--radius);
+  background: #0b0a1a;
+  z-index: 1; /* mantém o mapa abaixo do header fixo */
+}
+
+.map-panel__note {
+  padding: 13px 6px 2px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Código a ser adicionado ou corrigido em styles.css */
+.city-card img,
+.brasao-img {
+  width: 100%;
+  height: 180px;         /* Defina uma altura fixa padronizada para o container */
+  object-fit: contain;   /* Garante que a imagem fique inteira sem cortar ou distorcer */
+  object-position: center; /* Centraliza a imagem no espaço disponível */
+  padding: 10px;         /* Margem interna de respiro para não encostar nas bordas */
+  background-color: transparent; /* Mantém o fundo limpo */
+}
+
+/* Marcador customizado */
+.pin {
+  position: relative;
+  width: 26px;
+  height: 26px;
+}
+.pin__dot {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: var(--teal-400);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 3px rgba(34, 207, 196, 0.28), 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+.pin__pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(59, 220, 208, 0.45);
+  animation: pin-pulse 2.6s ease-out infinite;
+}
+@keyframes pin-pulse {
+  0%   { transform: scale(0.55); opacity: 0.85; }
+  70%  { transform: scale(1.5);  opacity: 0; }
+  100% { transform: scale(1.5);  opacity: 0; }
+}
+
+/* Popups do Leaflet no tema do site */
+.leaflet-popup-content-wrapper {
+  background: #180e3d;
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.8);
+}
+.leaflet-popup-content { margin: 14px 16px; font-family: var(--font-body); }
+.leaflet-popup-tip { background: #180e3d; border: 1px solid var(--border-strong); }
+.leaflet-popup-close-button { color: var(--text-muted) !important; }
+.leaflet-container a.leaflet-popup-close-button:hover { color: var(--text) !important; }
+
+.popup__city {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.02rem;
+  margin-bottom: 2px;
+}
+.popup__meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.popup__link { font-size: 0.9rem; font-weight: 600; }
+
+.leaflet-control-attribution {
+  background: rgba(9, 5, 24, 0.82) !important;
+  color: var(--text-muted) !important;
+  font-size: 0.68rem !important;
+}
+.leaflet-control-attribution a { color: var(--teal-300) !important; }
+
+.leaflet-bar a {
+  background: #180e3d !important;
+  color: var(--text) !important;
+  border-color: rgba(166, 240, 234, 0.2) !important;
+}
+.leaflet-bar a:hover { background: #241458 !important; }
+
+/* -------------------------------------------------------------------------
+   9. Cartões genéricos
+   ---------------------------------------------------------------------- */
+.card {
+  position: relative;
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: transform 0.28s var(--ease), border-color 0.28s var(--ease),
+              background-color 0.28s var(--ease);
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
+}
+
+.card__icon {
+  width: 50px; height: 50px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background: rgba(34, 207, 196, 0.1);
+  color: var(--teal-300);
+}
+
+
+.card__icon svg { width: 26px; height: 26px; }
+
+.card__title { font-size: 1.18rem; margin-bottom: 10px; }
+.card__text { color: var(--text-soft); font-size: 0.96rem; }
+
+.grid { display: grid; gap: 22px; }
+.grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* -------------------------------------------------------------------------
+   10. Sobre o projeto
+   ---------------------------------------------------------------------- */
+.about__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: clamp(34px, 4vw, 64px);
+  align-items: start;
+}
+
+.checklist { display: grid; gap: 16px; margin-top: 8px; }
+.checklist li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  color: var(--text-soft);
+}
+.checklist svg {
+  width: 22px; height: 22px;
+  flex: none;
+  margin-top: 2px;
+  color: var(--teal-400);
+}
+.checklist strong { color: var(--text); font-weight: 600; }
+
+/* Painel lateral "público-alvo" */
+.panel {
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(155deg, rgba(34, 207, 196, 0.12), rgba(255, 255, 255, 0.02));
+  box-shadow: var(--shadow-soft);
+}
+.panel__title { font-size: 1.28rem; margin-bottom: 16px; }
+.panel__text { color: var(--text-soft); font-size: 0.97rem; margin-bottom: 22px; }
+
+.tag-list { display: flex; flex-wrap: wrap; gap: 9px; }
+.tag {
+  padding: 7px 15px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--teal-100);
+}
+
+.partners {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+.partners__label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.partners__names {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+.partners__names a { color: var(--text); }
+.partners__names a:hover { color: var(--teal-200); }
+.partners__plus { color: var(--text-muted); font-weight: 400; }
+
+/* -------------------------------------------------------------------------
+   11. Cidades atendidas
+   ---------------------------------------------------------------------- */
+.city-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px 24px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  transition: transform 0.28s var(--ease), border-color 0.28s var(--ease),
+              background-color 0.28s var(--ease), box-shadow 0.28s var(--ease);
+}
+.city-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-soft);
+  color: var(--text);
+}
+
+/* Medalhão claro: os brasões oficiais são desenhados para fundo claro */
+.crest {
+  width: 108px; height: 108px;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+}
+/* aspect-ratio garante caixa quadrada: a altura percentual não resolvia contra
+   uma trilha dimensionada pelo conteúdo, então a caixa seguia a proporção do
+   arquivo e não batia com o width/height declarados (fonte de layout shift). */
+.crest img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+/* Os brasões têm proporções diferentes; dentro de uma caixa quadrada os mais
+   altos ficam visualmente menores. Estes ajustes igualam a massa óptica. */
+.crest--tall img { transform: scale(1.14); }
+.crest--mid img  { transform: scale(1.06); }
+
+.city-card__name { font-size: 1.24rem; margin-bottom: 6px; }
+.city-card__state {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.city-card__cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--teal-300);
+}
+.city-card__cta svg { width: 15px; height: 15px; transition: transform 0.24s var(--ease); }
+.city-card:hover .city-card__cta svg { transform: translateX(4px); }
+
+/* -------------------------------------------------------------------------
+   12. Como funciona — trilha de 3 etapas
+   ---------------------------------------------------------------------- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  position: relative;
+}
+
+.step {
+  position: relative;
+  padding: 34px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.step__num {
+  display: grid;
+  place-items: center;
+  width: 46px; height: 46px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal-400), var(--teal-600));
+  color: #06232b;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.step__title { font-size: 1.16rem; margin-bottom: 10px; }
+.step__text { color: var(--text-soft); font-size: 0.95rem; }
+
+/* Conector entre etapas (apenas no desktop) */
+.step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 57px;
+  right: -22px;
+  width: 22px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-strong), transparent);
+}
+
+/* -------------------------------------------------------------------------
+   13. Requisitos
+   ---------------------------------------------------------------------- */
+.req-list { display: grid; gap: 14px; }
+.req {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+.req__mark {
+  flex: none;
+  width: 26px; height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(34, 207, 196, 0.14);
+  color: var(--teal-300);
+}
+.req__mark svg { width: 15px; height: 15px; }
+.req__title { font-weight: 600; margin-bottom: 3px; }
+.req__text { color: var(--text-soft); font-size: 0.93rem; }
+
+/* -------------------------------------------------------------------------
+   14. Cronograma
+   ---------------------------------------------------------------------- */
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding-left: 34px;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--teal-400), rgba(59, 220, 208, 0.08));
+}
+
+.tl-item { position: relative; padding: 18px 0 22px; }
+.tl-item::before {
+  content: "";
+  position: absolute;
+  left: -34px;
+  top: 25px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--ink-800);
+  border: 2px solid var(--teal-400);
+  box-shadow: 0 0 0 4px rgba(34, 207, 196, 0.12);
+}
+
+.tl-item__when {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  margin-bottom: 6px;
+}
+.tl-item__title { font-size: 1.1rem; margin-bottom: 6px; }
+.tl-item__text { color: var(--text-soft); font-size: 0.95rem; }
+
+/* -------------------------------------------------------------------------
+   15. FAQ (accordion)
+   ---------------------------------------------------------------------- */
+.faq { display: grid; gap: 12px; max-width: 860px; margin-inline: auto; }
+
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+.faq-item.is-open {
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
+}
+
+.faq-item__btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 21px 24px;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-item__icon {
+  flex: none;
+  width: 26px; height: 26px;
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  transition: background-color 0.25s var(--ease), transform 0.3s var(--ease);
+}
+.faq-item__icon::before,
+.faq-item__icon::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  background: var(--teal-300);
+  border-radius: 2px;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.25s var(--ease);
+}
+.faq-item__icon::before { width: 11px; height: 2px; }
+.faq-item__icon::after  { width: 2px; height: 11px; }
+.faq-item.is-open .faq-item__icon { transform: rotate(180deg); }
+.faq-item.is-open .faq-item__icon::after { opacity: 0; }
+
+.faq-item__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s var(--ease);
+}
+.faq-item.is-open .faq-item__panel { grid-template-rows: 1fr; }
+
+.faq-item__inner { overflow: hidden; }
+.faq-item__inner > div {
+  padding: 0 24px 22px;
+  color: var(--text-soft);
+  font-size: 0.96rem;
+}
+
+/* -------------------------------------------------------------------------
+   16. CTA final
+   ---------------------------------------------------------------------- */
+.cta-band {
+  position: relative;
+  padding: clamp(44px, 5vw, 72px);
+  border: 1px solid var(--border-strong);
+  border-radius: 30px;
+  text-align: center;
+  background:
+    radial-gradient(90% 140% at 50% 0%, rgba(34, 207, 196, 0.22), rgba(34, 207, 196, 0) 62%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
+  box-shadow: var(--shadow-soft);
+}
+.cta-band__title {
+  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.7rem);
+  margin-bottom: 16px;
+}
+.cta-band__text {
+  max-width: 60ch;
+  margin: 0 auto 32px;
+  color: var(--text-soft);
+  font-size: 1.04rem;
+}
+.cta-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+/* -------------------------------------------------------------------------
+   17. Rodapé
+   ---------------------------------------------------------------------- */
+.site-footer {
+  margin-top: 96px;
+  border-top: 1px solid var(--border);
+  background: rgba(9, 5, 24, 0.55);
+  padding-block: 56px 30px;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  padding-bottom: 38px;
+  border-bottom: 1px solid var(--border);
+}
+
+.footer__about {
+  margin-top: 16px;
+  color: var(--text-muted);
+  font-size: 0.93rem;
+  max-width: 42ch;
+}
+
+.footer__title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  margin-bottom: 16px;
+}
+
+.footer__list { display: grid; gap: 2px; }
+.footer__list a,
+.footer__list span {
+  display: inline-block;
+  padding: 10px 0;              /* alvo de toque confortável sem inchar a coluna */
+  color: var(--text-soft);
+  font-size: 0.93rem;
+}
+.footer__list a:hover { color: var(--teal-200); }
+
+.footer__contact { display: grid; gap: 2px; }
+.footer__contact a { word-break: break-word; }
+
+.footer__bottom {
+  padding-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* -------------------------------------------------------------------------
+   18. Páginas de cidade
+   ---------------------------------------------------------------------- */
+.city-page {
+  min-height: calc(100vh - var(--header-h));
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--header-h) + 64px);
+  padding-bottom: 88px;
+}
+
+/* Entrada em CSS puro: o bloco é todo o conteúdo da página, então não pode
+   depender de JavaScript para ficar visível. */
+@keyframes city-in {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.city-hero {
+  animation: city-in 0.8s var(--ease) both;
+  max-width: 680px;
+  margin-inline: auto;
+  text-align: center;
+  padding: clamp(34px, 5vw, 62px) clamp(24px, 4vw, 56px);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+  box-shadow: var(--shadow-soft);
+}
+
+.city-hero .crest {
+  width: 170px; height: 170px;
+  padding: 18px;
+  margin-inline: auto;
+  margin-bottom: 28px;
+}
+
+
+.city-hero__name {
+  font-size: clamp(2.1rem, 1.4rem + 2.9vw, 3.2rem);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+
+.city-hero__state {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  margin-bottom: 26px;
+}
+
+.city-hero__text {
+  font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+  color: var(--text-soft);
+  margin-bottom: 34px;
+}
+.city-hero__text strong { color: var(--text); font-weight: 600; }
+
+.city-hero__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Tranquilização no momento do compromisso — última coisa antes do formulário */
+.city-hero__note {
+  max-width: 42ch;
+  margin: -2px auto 4px;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.back-link:hover { color: var(--teal-200); }
+.back-link svg { width: 15px; height: 15px; transition: transform 0.24s var(--ease); }
+.back-link:hover svg { transform: translateX(-4px); }
+
+/* -------------------------------------------------------------------------
+   18b. Barra de ação fixa (apenas mobile)
+   Entre a seção de cidades e o CTA final existem ~7 telas de conteúdo
+   persuasivo sem nenhuma saída para ação. Esta barra cobre esse vão.
+   ---------------------------------------------------------------------- */
+.action-bar {
+  display: none;
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 90;
+  padding: 12px 18px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: rgba(13, 7, 32, 0.94);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transform: translateY(110%);
+  /* visibility impede que o botão fora da tela receba foco pelo teclado */
+  visibility: hidden;
+  transition: transform 0.32s var(--ease), visibility 0.32s;
+}
+.action-bar.is-visible { transform: none; visibility: visible; }
+.action-bar .btn { width: 100%; }
+
+@media (max-width: 960px) {
+  .action-bar { display: block; }
+  /* impede que a barra cubra o fim do rodapé */
+  body.has-action-bar { padding-bottom: 84px; }
+}
+
+/* -------------------------------------------------------------------------
+   19. Animação de entrada (scroll reveal)
+   ---------------------------------------------------------------------- */
+/* O estado inicial escondido só é aplicado quando o JS está ativo (classe .js
+   adicionada no <head>). Sem JS, o conteúdo aparece normalmente. */
+.reveal { transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(26px);
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Escalonamento dos filhos de uma grade revelada */
+.reveal[data-delay="1"] { transition-delay: 0.08s; }
+.reveal[data-delay="2"] { transition-delay: 0.16s; }
+.reveal[data-delay="3"] { transition-delay: 0.24s; }
+
+/* -------------------------------------------------------------------------
+   19b. Marca UniFil e blocos de parceria (realização + municípios)
+
+   O arquivo assets/logos/unifil.svg é o ponto único de troca da marca:
+   sobrescrevê-lo atualiza cabeçalho, rodapé e faixas de todas as páginas.
+   A altura é sempre definida aqui e a largura fica em "auto", então qualquer
+   proporção de arquivo oficial encaixa sem quebrar o layout.
+   ---------------------------------------------------------------------- */
+
+/* Selo da UniFil no header — acompanha a marca do projeto em todas as páginas */
+.header-partner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  padding-left: 18px;
+  border-left: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.header-partner:hover { color: var(--teal-200); }
+
+.header-partner__label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.header-partner__logo {
+  height: 26px;
+  width: auto;
+  flex: none;
+}
+
+/* Faixa de parceiros da home, logo abaixo do hero */
+.partner-strip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 26px 40px;
+  padding: 26px 30px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* A régua vertical separa realização de municípios sem exigir um segundo card */
+.partner-strip__block + .partner-strip__block {
+  padding-left: 40px;
+  border-left: 1px solid var(--border);
+}
+
+.partner-strip__label,
+.partners__label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.partner-strip__logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.24rem;
+  color: var(--text);
+}
+.partner-strip__logos a { color: var(--text); }
+.partner-strip__logos a:hover { color: var(--teal-200); }
+.partner-strip__plus { color: var(--text-muted); font-weight: 400; }
+
+.logo-unifil {
+  display: inline-flex;
+  align-items: center;
+}
+.logo-unifil img {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+/* Municípios parceiros: brasão + nome, com link para a prefeitura */
+.partner-cities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
+
+.partner-city {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px 7px 7px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: border-color 0.24s var(--ease), background-color 0.24s var(--ease),
+              transform 0.24s var(--ease);
+}
+.partner-city:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
+  transform: translateY(-2px);
+}
+
+/* Medalhão claro reduzido: os brasões oficiais são feitos para fundo claro */
+.partner-city__crest {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  padding: 3px;
+  border-radius: 50%;
+  background: #fff;
+  overflow: hidden;
+}
+.partner-city__crest img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.partner-city__ext {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  color: var(--text-muted);
+}
+.partner-city:hover .partner-city__ext { color: var(--teal-300); }
+
+/* Lista de municípios dentro do painel "Público-alvo" (sem brasão) */
+.partners__label--gap { margin-top: 20px; }
+
+.partners__cities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+.partners__cities a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--teal-100);
+  transition: border-color 0.24s var(--ease), background-color 0.24s var(--ease),
+              color 0.24s var(--ease);
+}
+.partners__cities a:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
+  color: var(--text);
+}
+.partners__cities svg {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  opacity: 0.75;
+}
+
+.partners__logo { height: 26px; width: auto; display: block; }
+
+/* Bloco de realização do rodapé (todas as páginas) */
+.footer__partners { margin-top: 26px; }
+
+.footer__partners-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+.footer__partners-row a { color: var(--text); }
+.footer__partners-row a:hover { color: var(--teal-200); }
+.footer__partners-row img { height: 28px; width: auto; display: block; }
+.footer__partners-plus { color: var(--text-muted); font-weight: 400; }
+
+.footer__partners-note {
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  max-width: 42ch;
+}
+.footer__partners-note a { color: var(--text-soft); text-decoration: underline; }
+.footer__partners-note a:hover { color: var(--teal-200); }
+
+/* Linha de realização das páginas de cidade */
+.city-partners {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 18px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+.city-partners__label {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.city-partners a { color: var(--text); }
+.city-partners a:hover { color: var(--teal-200); }
+.city-partners img { height: 28px; width: auto; display: block; }
+.city-partners__plus { color: var(--text-muted); font-weight: 400; }
+
+/* -------------------------------------------------------------------------
+   20. Responsividade — breakpoints em 960px e 640px
+   ---------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .nav__link { padding: 9px 10px; font-size: 0.88rem; }
+  .header-cta { padding: 11px 18px; }
+
+  /* Entre 960 e 1080px a barra ainda mostra os 6 itens do menu ao lado do
+     selo. A legenda sai primeiro: ela é decorativa, o logo não. */
+  .header-partner { padding-left: 14px; }
+  .header-partner__label { display: none; }
+  .header-partner__logo { height: 24px; }
+}
+
+@media (max-width: 960px) {
+  .nav-toggle { display: block; }
+
+  /* Menu mobile em painel deslizante */
+  .nav {
+    position: fixed;
+    inset: var(--header-h) 0 auto 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 20px 24px 28px;
+    background: rgba(13, 7, 32, 0.97);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.85);
+    transform: translateY(-14px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.26s var(--ease), transform 0.26s var(--ease), visibility 0.26s;
+  }
+  .nav.is-open { opacity: 1; visibility: visible; transform: none; }
+
+  .nav__link { padding: 13px 14px; font-size: 1rem; }
+  .header-cta { margin: 10px 0 0; width: 100%; padding: 14px 22px; font-size: 1rem; }
+
+  .hero { padding-top: calc(var(--header-h) + 48px); }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .hero__text { max-width: none; }
+
+  .about__layout { grid-template-columns: minmax(0, 1fr); }
+
+  .grid--3, .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* Três etapas nunca devem quebrar como 2+1: isso órfã a última e destrói
+     a leitura de sequência. Uma coluna mantém a trilha legível. */
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .step:not(:last-child)::after { display: none; }
+
+  .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+
+  /* Empilha realização e municípios: a régua vertical vira horizontal */
+  .partner-strip { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .partner-strip__block + .partner-strip__block {
+    padding-left: 0;
+    padding-top: 22px;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .section { padding-block: 78px; }
+}
+
+@media (max-width: 640px) {
+  :root { --header-h: 66px; }
+
+  .container { padding-inline: 18px; }
+  .section { padding-block: 62px; }
+  .section-head { margin-bottom: 38px; }
+
+  .hero__frame { padding: 22px 18px; border-radius: 22px; }
+  .hero__actions .btn { width: 100%; }
+
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .stat__label { font-size: 0.74rem; }
+
+  #mapa { height: 320px; }
+
+  .grid--2, .grid--3, .grid--4, .steps { grid-template-columns: minmax(0, 1fr); }
+
+  .card, .step { padding: 24px 20px; }
+  .panel { padding: 24px 20px; }
+
+  .faq-item__btn { padding: 18px; font-size: 0.97rem; }
+  .faq-item__inner > div { padding: 0 18px 18px; }
+
+  .cta-band { padding: 34px 20px; border-radius: 22px; }
+  .cta-band__actions .btn { width: 100%; }
+
+  .footer__grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .footer__bottom { flex-direction: column; align-items: flex-start; }
+
+  .city-hero { padding: 32px 20px; border-radius: 22px; }
+  .city-hero .crest { width: 132px; height: 132px; padding: 14px; }
+  .city-hero__actions .btn { width: 100%; }
+
+  .header-partner { padding-left: 12px; }
+  .header-partner__logo { height: 21px; }
+
+  .partner-strip { padding: 22px 18px; border-radius: 14px; }
+  .partner-strip__logos { font-size: 1.1rem; }
+  .logo-unifil img { height: 30px; }
+
+  /* Grade 2x2: com rolagem horizontal duas cidades ficariam escondidas fora
+     da tela, e o objetivo do bloco é justamente mostrar as quatro. */
+  .partner-cities {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .partner-city {
+    padding: 6px 10px 6px 6px;
+    font-size: 0.88rem;
+    gap: 8px;
+  }
+  .partner-city__crest { width: 27px; height: 27px; }
+}
+
+/* -------------------------------------------------------------------------
+   21. Preferência por menos movimento
+   ---------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js .reveal { opacity: 1; transform: none; }
+  .btn:hover, .card:hover, .city-card:hover { transform: none; }
+  .pin__pulse { display: none; }
+}
+
+/* Impressão */
+@media print {
+  body::before, body::after { display: none; }
+  .site-header, .nav-toggle, .map-panel { display: none; }
+  body { background: #fff; color: #000; }
+}

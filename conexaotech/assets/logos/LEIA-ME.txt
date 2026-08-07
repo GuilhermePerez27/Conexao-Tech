@@ -1,0 +1,30 @@
+assets/logos/unifil.svg
+=======================
+
+Este arquivo é a marca "UniFil" usada no cabeçalho, no rodapé e nos blocos de
+realização de TODAS as páginas do site (index, cambe, ibipora, arapongas,
+rolandia).
+
+IMPORTANTE — SUBSTITUA PELO ARQUIVO OFICIAL
+-------------------------------------------
+O SVG entregue aqui é um wordmark PROVISÓRIO, desenhado para o fundo escuro do
+site enquanto o arquivo oficial não é aplicado. Ele NÃO é a marca oficial da
+instituição.
+
+Para trocar, baixe o SVG oficial em:
+
+    https://unifil.br/assets/uploads/2022/11/logo-unifil.svg
+
+e sobrescreva este arquivo mantendo exatamente o mesmo nome (unifil.svg).
+Nenhum HTML ou CSS precisa ser alterado — as 5 páginas apontam para este
+caminho único.
+
+Observações ao trocar:
+- O logo oficial tem lettering em laranja (#f18704) sobre fundo claro. Como o
+  site é escuro, confira o contraste; se a versão oficial monocromática branca
+  estiver disponível no manual de marca, prefira ela.
+- Mantenha o viewBox do arquivo oficial. A altura é controlada pelo CSS
+  (.logo-unifil img, .header-partner__logo), então a proporção se ajusta
+  sozinha.
+- Se o arquivo oficial vier em PNG, salve como unifil.png e atualize o atributo
+  src nos 5 arquivos HTML (busca por "assets/logos/unifil.svg").

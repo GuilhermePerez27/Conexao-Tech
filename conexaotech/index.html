@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conexão Tech 2026 | UniFil</title>
+  <meta name="description" content="Conexão Tech é um curso gratuito de programação para estudantes do Ensino Médio de Cambé, Ibiporã, Arapongas e Rolândia (PR). Uma iniciativa da UniFil em parceria com o Sebrae.">
+  <meta name="theme-color" content="#150b33">
+
+  <!-- TROQUE https://exemplo.com.br pelo domínio real ao publicar (og:image e
+       canonical exigem URL absoluta para funcionar no WhatsApp e no Facebook). -->
+  <link rel="canonical" href="https://exemplo.com.br/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://exemplo.com.br/">
+  <meta property="og:title" content="Conexão Tech 2026 — Curso gratuito de programação">
+  <meta property="og:description" content="Formação gratuita em programação para alunos do Ensino Médio de Cambé, Ibiporã, Arapongas e Rolândia (PR).">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="https://exemplo.com.br/assets/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Conexão Tech 2026 — curso gratuito de programação em Cambé, Ibiporã, Arapongas e Rolândia. Realização UniFil e Sebrae.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+        integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <!-- Marca que o JS está ativo: sem isso, o conteúdo com animação de entrada
+       é exibido normalmente em vez de ficar invisível. -->
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- =====================================================================
+     HEADER FIXO — repetido em todas as páginas do site
+     ================================================================== -->
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html" aria-label="Conexão Tech — página inicial">
+      <svg class="brand__mark" viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
+        <path d="M20 6.5c-2.9 0-5.3 1.9-6.1 4.5-3.2.3-5.7 3-5.7 6.2 0 1.2.3 2.3.9 3.2-1.2 1.1-1.9 2.6-1.9 4.3 0 3.3 2.7 6 6 6 .4 0 .8 0 1.2-.1.9 2 2.9 3.4 5.2 3.4"
+              stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20 6.5c2.9 0 5.3 1.9 6.1 4.5 3.2.3 5.7 3 5.7 6.2 0 1.2-.3 2.3-.9 3.2 1.2 1.1 1.9 2.6 1.9 4.3 0 3.3-2.7 6-6 6-.4 0-.8 0-1.2-.1-.9 2-2.9 3.4-5.2 3.4"
+              stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20 7v27" stroke="currentColor" stroke-width="1.3" opacity=".5"/>
+        <path d="M20 14h-4.5M20 21.5h5M20 27.5h-3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".85"/>
+        <circle cx="15.5" cy="14" r="1.9" fill="currentColor"/>
+        <circle cx="25" cy="21.5" r="1.9" fill="currentColor"/>
+        <circle cx="16.5" cy="27.5" r="1.6" fill="currentColor"/>
+      </svg>
+      <span class="brand__name">Conexão <span>Tech</span></span>
+    </a>
+
+    <!-- Selo da instituição realizadora. O arquivo assets/logos/unifil.svg é
+         compartilhado por todas as páginas: trocá-lo atualiza o site inteiro. -->
+    <a class="header-partner" href="https://unifil.br" target="_blank" rel="noopener"
+       aria-label="UniFil — Centro Universitário Filadélfia, realizadora do projeto (abre em nova aba)">
+      <img class="header-partner__logo" src="assets/logos/unifil.svg" alt="UniFil" width="173" height="56">
+    </a>
+
+    <nav class="nav" id="menu-principal" aria-label="Navegação principal">
+      <a class="nav__link" href="index.html#sobre">Sobre</a>
+      <a class="nav__link" href="index.html#cidades">Cidades</a>
+      <a class="nav__link" href="index.html#como-funciona">Como funciona</a>
+      <a class="nav__link" href="index.html#requisitos">Requisitos</a>
+      <a class="nav__link" href="index.html#faq">FAQ</a>
+      <a class="btn btn--primary header-cta" href="index.html#cidades">Inscreva-se</a>
+    </nav>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- ===================================================================
+       HERO — título, subtítulo, estatísticas e mapa das 4 cidades
+       ================================================================ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__frame">
+        <div class="hero__grid">
+
+          <div class="hero__intro">
+            <p class="hero__year">2026</p>
+            <h1 class="hero__title">Conexão <span>Tech</span></h1>
+            <p class="hero__tagline">Curso gratuito de programação</p>
+
+            <p class="hero__text">
+              Uma iniciativa da <strong>UniFil</strong> em parceria com o <strong>Sebrae</strong> e com as prefeituras
+              de <strong>Cambé</strong>, <strong>Arapongas</strong>, <strong>Ibiporã</strong> e <strong>Rolândia</strong>, que leva aulas de programação a estudantes do Ensino Médio,
+              despertando o interesse pela área de tecnologia e entregando conhecimento útil para o dia a dia.
+            </p>
+
+            <div class="hero__actions">
+              <a class="btn btn--primary btn--lg" href="#cidades">
+                Escolher minha cidade
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a class="btn btn--ghost btn--lg" href="#sobre">Saiba mais</a>
+            </div>
+
+            <!-- <dt> antes de <dd> conforme exige a lista de definição;
+                 a ordem visual é invertida no CSS. -->
+            <dl class="stats">
+              <div class="stat">
+                <dt class="stat__label">Cidades atendidas</dt>
+                <dd class="stat__value" data-count="4">0</dd>
+              </div>
+              <div class="stat">
+                <dt class="stat__label">Gratuito para o aluno</dt>
+                <dd class="stat__value" data-count="100" data-suffix="%">0%</dd>
+              </div>
+              <div class="stat">
+                <dt class="stat__label">Etapas até o certificado</dt>
+                <dd class="stat__value" data-count="3">0</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Mapa real das cidades atendidas (Leaflet) -->
+          <div class="map-panel">
+            <div class="map-panel__head">
+              <span class="map-panel__title">Onde estamos</span>
+              <span class="map-panel__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            </div>
+
+            <!-- role="region" e não "img": o mapa contém marcadores e controles
+                 focáveis, que role="img" removeria da árvore de acessibilidade. -->
+            <div id="mapa" role="region"
+                 aria-label="Mapa do norte do Paraná com marcações nas cidades de Cambé, Ibiporã, Arapongas e Rolândia."></div>
+
+            <p class="map-panel__note">
+              Quatro cidades no norte do Paraná: Cambé, Ibiporã, Arapongas e Rolândia.
+              Toque em um marcador para ver a página da cidade.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       REALIZAÇÃO E PARCERIAS — quem assina o projeto, logo abaixo do hero.
+       Cada município leva ao site oficial da respectiva prefeitura.
+       ================================================================ -->
+  <!-- <section class="section section--tight" id="parcerias" aria-labelledby="parcerias-titulo">
+    <div class="container">
+      <h2 class="sr-only" id="parcerias-titulo">Realização e parcerias do Conexão Tech</h2>
+
+      <div class="partner-strip reveal">
+
+        <div class="partner-strip__block">
+          <p class="partner-strip__label">Realização</p>
+          <div class="partner-strip__logos">
+            <a class="logo-unifil" href="https://unifil.br" target="_blank" rel="noopener"
+               aria-label="UniFil — Centro Universitário Filadélfia (abre em nova aba)">
+              <img src="assets/logos/unifil.svg" alt="UniFil" width="173" height="56">
+            </a>
+            <span class="partner-strip__plus" aria-hidden="true">+</span>
+            <a href="https://sebrae.com.br" target="_blank" rel="noopener">Sebrae</a>
+          </div>
+        </div>
+
+        <div class="partner-strip__block">
+          <p class="partner-strip__label">Em parceria com os municípios de</p>
+          <ul class="partner-cities">
+            <li>
+              <a class="partner-city" href="https://www.cambe.pr.gov.br/" target="_blank" rel="noopener">
+                <span class="partner-city__crest"><img src="assets/brasoes/cambe.svg" alt="" width="30" height="30" loading="lazy"></span>
+                <span>Cambé</span>
+                <svg class="partner-city__ext" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="sr-only">— site da Prefeitura de Cambé (abre em nova aba)</span>
+              </a>
+            </li>
+            <li>
+              <a class="partner-city" href="https://www.ibipora.pr.gov.br/" target="_blank" rel="noopener">
+                <span class="partner-city__crest"><img src="assets/brasoes/ibipora.jpg" alt="" width="30" height="30" loading="lazy"></span>
+                <span>Ibiporã</span>
+                <svg class="partner-city__ext" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="sr-only">— site da Prefeitura de Ibiporã (abre em nova aba)</span>
+              </a>
+            </li>
+            <li>
+              <a class="partner-city" href="https://www.arapongas.pr.gov.br/" target="_blank" rel="noopener">
+                <span class="partner-city__crest"><img src="assets/brasoes/arapongas.jpg" alt="" width="30" height="30" loading="lazy"></span>
+                <span>Arapongas</span>
+                <svg class="partner-city__ext" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="sr-only">— site da Prefeitura de Arapongas (abre em nova aba)</span>
+              </a>
+            </li>
+            <li>
+              <a class="partner-city" href="https://www.rolandia.pr.gov.br/" target="_blank" rel="noopener">
+                <span class="partner-city__crest"><img src="assets/brasoes/rolandia.jpg" alt="" width="30" height="30" loading="lazy"></span>
+                <span>Rolândia</span>
+                <svg class="partner-city__ext" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span class="sr-only">— site da Prefeitura de Rolândia (abre em nova aba)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section> -->
+
+  <!-- ===================================================================
+       SOBRE O PROJETO
+       ================================================================ -->
+  <section class="section" id="sobre">
+    <div class="container">
+      <div class="about__layout">
+
+        <div class="reveal">
+          <p class="eyebrow">Sobre o projeto</p>
+          <h2 class="section-title">Tecnologia como ponte para o futuro dos estudantes</h2>
+          <p class="section-lead section-lead--gap">
+            O Conexão Tech é um programa de formação gratuita em lógica e programação criado para
+            aproximar o estudante do Ensino Médio do universo da tecnologia. As aulas partem do zero,
+            são conduzidas por professores e monitores da UniFil e acontecem na própria cidade do aluno.
+          </p>
+
+          <ul class="checklist">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M8 12.4l2.6 2.6L16 9.6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong>Desenvolver o raciocínio lógico</strong> - a base de qualquer área de tecnologia e também um reforço para as disciplinas da escola.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M8 12.4l2.6 2.6L16 9.6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong>Ensinar os fundamentos da programação</strong> - do primeiro algoritmo até a construção de páginas e pequenos projetos.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M8 12.4l2.6 2.6L16 9.6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong>Despertar vocações</strong> - mostrar na prática as profissões da área e ajudar o aluno a decidir seu caminho.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M8 12.4l2.6 2.6L16 9.6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong>Aplicar no dia a dia</strong> - mesmo quem seguir outra carreira sai com competências digitais que valem para qualquer profissão.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M8 12.4l2.6 2.6L16 9.6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong>Fortalecer o currículo</strong> - com certificado emitido ao concluir a formação.</span>
+            </li>
+          </ul>
+        </div>
+
+        <aside class="panel reveal" data-delay="1">
+          <h3 class="panel__title">Público-alvo</h3>
+          <p class="panel__text">
+            Exclusivo para alunos do <strong>Ensino Médio</strong> das redes pública ou privada das
+            quatro cidades atendidas pelo projeto. Não é preciso ter qualquer conhecimento prévio
+            de programação para participar.
+          </p>
+
+          <div class="tag-list">
+            <span class="tag">Ensino Médio</span>
+            <span class="tag">Rede pública</span>
+            <span class="tag">Rede privada</span>
+            <span class="tag">Sem pré-requisito</span>
+            <span class="tag">100% gratuito</span>
+          </div>
+
+          <div class="partners">
+            <p class="partners__label">Realização</p>
+            <div class="partners__names">
+              <a href="https://unifil.br" target="_blank" rel="noopener"
+                 aria-label="UniFil — Centro Universitário Filadélfia (abre em nova aba)">
+                <img class="partners__logo" src="assets/logos/unifil.svg" alt="UniFil" width="173" height="56" loading="lazy">
+              </a>
+              <span class="partners__plus" aria-hidden="true">+</span>
+              <a href="https://sebrae.com.br" target="_blank" rel="noopener">Sebrae</a>
+            </div>
+
+            <!-- Cada município leva ao site oficial da prefeitura. -->
+            <p class="partners__label partners__label--gap">Parceria com os municípios</p>
+            <ul class="partners__cities">
+              <li>
+                <a href="https://www.cambe.pr.gov.br/" target="_blank" rel="noopener">
+                  Cambé
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="sr-only">— site da Prefeitura de Cambé (abre em nova aba)</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.ibipora.pr.gov.br/" target="_blank" rel="noopener">
+                  Ibiporã
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="sr-only">— site da Prefeitura de Ibiporã (abre em nova aba)</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.arapongas.pr.gov.br/" target="_blank" rel="noopener">
+                  Arapongas
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="sr-only">— site da Prefeitura de Arapongas (abre em nova aba)</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.rolandia.pr.gov.br/" target="_blank" rel="noopener">
+                  Rolândia
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span class="sr-only">— site da Prefeitura de Rolândia (abre em nova aba)</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       CIDADES ATENDIDAS
+       ================================================================ -->
+  <section class="section" id="cidades">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow">Cidades atendidas</p>
+        <h2 class="section-title">Escolha a sua cidade para se inscrever</h2>
+        <p class="section-lead">
+          O Conexão Tech acontece em quatro municípios do norte do Paraná. O local e a data de
+          início das aulas variam de acordo com cada cidade, clique na sua para ver os detalhes
+          e acessar o formulário de inscrição.
+        </p>
+      </div>
+
+      <div class="grid grid--4">
+        <a class="city-card reveal" href="cambe.html">
+          <span class="crest"><img src="assets/brasoes/cambe.svg" alt="Brasão oficial do município de Cambé" width="108" height="108" loading="lazy"></span>
+          <h3 class="city-card__name">Cambé</h3>
+          <p class="city-card__state">Paraná</p>
+          <span class="city-card__cta">
+            Ver cidade
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="city-card reveal" data-delay="1" href="ibipora.html">
+          <span class="crest crest--mid"><img src="assets/brasoes/ibipora.jpg" alt="Brasão oficial do município de Ibiporã" width="108" height="108" loading="lazy"></span>
+          <h3 class="city-card__name">Ibiporã</h3>
+          <p class="city-card__state">Paraná</p>
+          <span class="city-card__cta">
+            Ver cidade
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="city-card reveal" data-delay="2" href="arapongas.html">
+          <span class="crest crest--mid"><img src="assets/brasoes/arapongas.jpg" alt="Brasão oficial do município de Arapongas" width="108" height="108" loading="lazy"></span>
+          <h3 class="city-card__name">Arapongas</h3>
+          <p class="city-card__state">Paraná</p>
+          <span class="city-card__cta">
+            Ver cidade
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="city-card reveal" data-delay="3" href="rolandia.html">
+          <span class="crest crest--tall"><img src="assets/brasoes/rolandia.jpg" alt="Brasão oficial do município de Rolândia" width="108" height="108" loading="lazy"></span>
+          <h3 class="city-card__name">Rolândia</h3>
+          <p class="city-card__state">Paraná</p>
+          <span class="city-card__cta">
+            Ver cidade
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       COMO FUNCIONA — trilha de 3 etapas
+       ================================================================ -->
+  <section class="section" id="como-funciona">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow">Como funciona</p>
+        <h2 class="section-title">Da inscrição ao certificado</h2>
+        <p class="section-lead">
+          A trilha do Conexão Tech tem três etapas simples. Você começa do zero e termina o ano
+          com projetos feitos por você e um certificado no currículo.
+        </p>
+      </div>
+
+      <div class="steps">
+        <article class="step reveal">
+          <div class="step__num">1</div>
+          <h3 class="step__title">Inscrição e confirmação</h3>
+          <p class="step__text">
+            Escolha a sua cidade nesta página e preencha o formulário. A organização confirma a
+            sua vaga por e-mail, com as orientações de local, dias e horário da turma do seu
+            município. O calendário é definido de acordo com cada cidade.
+          </p>
+        </article>
+
+        <article class="step reveal" data-delay="1">
+          <div class="step__num">2</div>
+          <h3 class="step__title">Aulas e projetos práticos</h3>
+          <p class="step__text">
+            Encontros presenciais na sua cidade ao longo de 2026, conduzidos por professores e
+            monitores da UniFil. Do primeiro algoritmo aos projetos desenvolvidos por você,
+            sempre com apoio de perto.
+          </p>
+        </article>
+
+        <article class="step reveal" data-delay="2">
+          <div class="step__num">3</div>
+          <h3 class="step__title">Formatura com certificado</h3>
+          <p class="step__text">
+            No encerramento você apresenta o que construiu, participa da formatura da turma e
+            recebe o certificado do Conexão Tech. Cumprindo a frequência e as atividades propostas.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       REQUISITOS DE PARTICIPAÇÃO
+       ================================================================ -->
+  <section class="section section--tight" id="requisitos">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Requisitos</p>
+        <h2 class="section-title">O que você precisa para participar</h2>
+        <p class="section-lead">
+          O projeto é gratuito e aberto. Os requisitos abaixo existem apenas para garantir o bom
+          andamento das turmas e a emissão do certificado.
+        </p>
+      </div>
+
+      <div class="grid grid--2">
+        <ul class="req-list reveal">
+          <li class="req">
+            <span class="req__mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.6l4.4 4.4L19 7.4" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div>
+              <p class="req__title">Estar cursando o Ensino Médio</p>
+              <p class="req__text">Em escola da rede pública ou privada, regular ou técnico.</p>
+            </div>
+          </li>
+          <li class="req">
+            <span class="req__mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.6l4.4 4.4L19 7.4" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div>
+              <p class="req__title">Estudar em uma das quatro cidades</p>
+              <p class="req__text">Cambé, Ibiporã, Arapongas ou Rolândia.</p>
+            </div>
+          </li>
+          <li class="req">
+            <span class="req__mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.6l4.4 4.4L19 7.4" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div>
+              <p class="req__title">Ter um e-mail ativo</p>
+              <p class="req__text">Usado para a inscrição e para o contato durante o curso. Recomenda-se uma conta Gmail.</p>
+            </div>
+          </li>
+        </ul>
+
+        <ul class="req-list reveal" data-delay="1">
+          <li class="req">
+            <span class="req__mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.6l4.4 4.4L19 7.4" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div>
+              <p class="req__title">Realizar a inscrição</p>
+              <p class="req__text">É necessário estar inscrito em nosso projeto para participar das aulas.</p>
+            </div>
+          </li>
+          <li class="req">
+            <span class="req__mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.6l4.4 4.4L19 7.4" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div>
+              <p class="req__title">Frequência mínima nas aulas</p>
+              <p class="req__text">Presença regular é condição para concluir a formação e receber o certificado.</p>
+            </div>
+          </li>
+          <li class="req">
+            <span class="req__mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.6l4.4 4.4L19 7.4" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div>
+              <p class="req__title">Entrega das atividades</p>
+              <p class="req__text">As atividades práticas propostas ao longo do curso fazem parte da avaliação.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       FAQ
+       ================================================================ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow">Perguntas frequentes</p>
+        <h2 class="section-title">Ainda tem dúvidas?</h2>
+        <p class="section-lead">Reunimos as perguntas que mais chegam até nós sobre o Conexão Tech.</p>
+      </div>
+
+      <div class="faq reveal">
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-item__btn" type="button" aria-expanded="false" aria-controls="faq-1" id="faq-btn-1">
+              <span>O curso é realmente gratuito?</span>
+              <span class="faq-item__icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-item__panel" id="faq-1" role="region" aria-labelledby="faq-btn-1" aria-hidden="true">
+            <div class="faq-item__inner"><div>
+              Sim. O Conexão Tech é uma iniciativa gratuita da UniFil em parceria com o Sebrae e com as
+              prefeituras de Cambé, Ibiporã, Arapongas e Rolândia.
+              Não há mensalidade, taxa de inscrição nem custo com material para o estudante.
+            </div></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-item__btn" type="button" aria-expanded="false" aria-controls="faq-2" id="faq-btn-2">
+              <span>Quem pode participar?</span>
+              <span class="faq-item__icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-item__panel" id="faq-2" role="region" aria-labelledby="faq-btn-2" aria-hidden="true">
+            <div class="faq-item__inner"><div>
+              Alunos que estejam cursando o Ensino Médio em escolas das redes pública ou privada de
+              Cambé, Ibiporã, Arapongas ou Rolândia.
+            </div></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-item__btn" type="button" aria-expanded="false" aria-controls="faq-3" id="faq-btn-3">
+              <span>Preciso saber programar antes de começar?</span>
+              <span class="faq-item__icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-item__panel" id="faq-3" role="region" aria-labelledby="faq-btn-3" aria-hidden="true">
+            <div class="faq-item__inner"><div>
+              Não. As aulas começam do zero, pela lógica de programação. Nenhum conhecimento prévio
+              é exigido, só vontade de aprender.
+            </div></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-item__btn" type="button" aria-expanded="false" aria-controls="faq-4" id="faq-btn-4">
+              <span>Preciso ter computador em casa?</span>
+              <span class="faq-item__icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-item__panel" id="faq-4" role="region" aria-labelledby="faq-btn-4" aria-hidden="true">
+            <div class="faq-item__inner"><div>
+              As aulas são revezadas entre aulas no modelo presencial e remoto. No modelo presencial há a presença de equipamentos especializados para a realização das aulas. No modelo remoto as aulas são adaptadas para atender tanto a dispositvos como celular, tablet quanto computadores.
+            </div></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-item__btn" type="button" aria-expanded="false" aria-controls="faq-5" id="faq-btn-5">
+              <span>Onde acontecem as aulas?</span>
+              <span class="faq-item__icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-item__panel" id="faq-5" role="region" aria-labelledby="faq-btn-5" aria-hidden="true">
+            <div class="faq-item__inner"><div>
+              O local é definido de acordo com cada cidade. Após a inscrição, você recebe por e-mail
+              o endereço, os dias e o horário da turma do seu município.
+            </div></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-item__btn" type="button" aria-expanded="false" aria-controls="faq-6" id="faq-btn-6">
+              <span>Quando começam as aulas?</span>
+              <span class="faq-item__icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-item__panel" id="faq-6" role="region" aria-labelledby="faq-btn-6" aria-hidden="true">
+            <div class="faq-item__inner"><div>
+              A data de início varia de acordo com cada cidade. O calendário da sua turma é informado
+              na confirmação da inscrição.
+            </div></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-item__btn" type="button" aria-expanded="false" aria-controls="faq-7" id="faq-btn-7">
+              <span>Recebo certificado ao final?</span>
+              <span class="faq-item__icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-item__panel" id="faq-7" role="region" aria-labelledby="faq-btn-7" aria-hidden="true">
+            <div class="faq-item__inner"><div>
+              Sim. Os estudantes que cumprirem a frequência mínima e entregarem as atividades
+              propostas recebem o certificado do Conexão Tech na formatura da turma.
+            </div></div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-item__btn" type="button" aria-expanded="false" aria-controls="faq-8" id="faq-btn-8">
+              <span>Como faço a minha inscrição?</span>
+              <span class="faq-item__icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-item__panel" id="faq-8" role="region" aria-labelledby="faq-btn-8" aria-hidden="true">
+            <div class="faq-item__inner"><div>
+              Vá até a seção <a href="#cidades">Cidades atendidas</a>, clique no seu município e use o
+              botão de inscrição da página. O formulário leva poucos minutos para ser preenchido.
+            </div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       CTA FINAL
+       ================================================================ -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="cta-band reveal">
+        <p class="eyebrow eyebrow--center">Vagas 2026</p>
+        <h2 class="cta-band__title">Sua carreira em tecnologia pode começar agora</h2>
+        <p class="cta-band__text">
+          Escolha a sua cidade, preencha o formulário e garanta a sua vaga na turma 2026 do
+          Conexão Tech. É gratuito, começa do zero e acontece pertinho de você.
+        </p>
+        <div class="cta-band__actions">
+          <a class="btn btn--primary btn--lg" href="#cidades">
+            Inscreva-se já
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="#faq">Ver perguntas frequentes</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- =====================================================================
+     RODAPÉ
+     ================================================================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__grid">
+
+      <div>
+        <a class="brand" href="index.html" aria-label="Conexão Tech — página inicial">
+          <svg class="brand__mark" viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
+            <path d="M20 6.5c-2.9 0-5.3 1.9-6.1 4.5-3.2.3-5.7 3-5.7 6.2 0 1.2.3 2.3.9 3.2-1.2 1.1-1.9 2.6-1.9 4.3 0 3.3 2.7 6 6 6 .4 0 .8 0 1.2-.1.9 2 2.9 3.4 5.2 3.4"
+                  stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 6.5c2.9 0 5.3 1.9 6.1 4.5 3.2.3 5.7 3 5.7 6.2 0 1.2-.3 2.3-.9 3.2 1.2 1.1 1.9 2.6 1.9 4.3 0 3.3-2.7 6-6 6-.4 0-.8 0-1.2-.1-.9 2-2.9 3.4-5.2 3.4"
+                  stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 7v27" stroke="currentColor" stroke-width="1.3" opacity=".5"/>
+            <path d="M20 14h-4.5M20 21.5h5M20 27.5h-3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".85"/>
+            <circle cx="15.5" cy="14" r="1.9" fill="currentColor"/>
+            <circle cx="25" cy="21.5" r="1.9" fill="currentColor"/>
+            <circle cx="16.5" cy="27.5" r="1.6" fill="currentColor"/>
+          </svg>
+          <span class="brand__name">Conexão <span>Tech</span></span>
+        </a>
+        <p class="footer__about">
+          Curso gratuito de programação para estudantes do Ensino Médio de Cambé, Ibiporã,
+          Arapongas e Rolândia. Uma iniciativa da UniFil em parceria com o Sebrae e com as
+          prefeituras dos quatro municípios.
+        </p>
+
+        <!-- Realização e parcerias — repetido em todas as páginas -->
+        <div class="footer__partners">
+          <p class="footer__title">Realização</p>
+          <div class="footer__partners-row">
+            <a href="https://unifil.br" target="_blank" rel="noopener"
+               aria-label="UniFil — Centro Universitário Filadélfia (abre em nova aba)">
+              <img src="assets/logos/unifil.svg" alt="UniFil" width="173" height="56">
+            </a>
+            <span class="footer__partners-plus" aria-hidden="true">+</span>
+            <a href="https://sebrae.com.br" target="_blank" rel="noopener">Sebrae</a>
+          </div>
+          <p class="footer__partners-note">
+            Em parceria com as prefeituras de <a href="https://www.cambe.pr.gov.br/" target="_blank" rel="noopener">Cambé</a>, <a href="https://www.ibipora.pr.gov.br/" target="_blank" rel="noopener">Ibiporã</a>, <a href="https://www.arapongas.pr.gov.br/" target="_blank" rel="noopener">Arapongas</a> e <a href="https://www.rolandia.pr.gov.br/" target="_blank" rel="noopener">Rolândia</a>.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer__title">Navegação</p>
+        <ul class="footer__list">
+          <li><a href="index.html#sobre">Sobre o projeto</a></li>
+          <li><a href="index.html#cidades">Cidades atendidas</a></li>
+          <li><a href="index.html#como-funciona">Como funciona</a></li>
+          <li><a href="index.html#requisitos">Requisitos</a></li>
+          <li><a href="index.html#faq">Perguntas frequentes</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer__title">Cidades</p>
+        <ul class="footer__list">
+          <li><a href="cambe.html">Cambé</a></li>
+          <li><a href="ibipora.html">Ibiporã</a></li>
+          <li><a href="arapongas.html">Arapongas</a></li>
+          <li><a href="rolandia.html">Rolândia</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer__title">Contato</p>
+        <ul class="footer__list footer__contact">
+          <!-- TROQUE pelos canais oficiais do Conexão Tech antes de publicar. -->
+          <!-- <li><a href="mailto:INSERIR_EMAIL_DO_PROJETO">INSERIR_EMAIL_DO_PROJETO</a></li>
+          <li><a href="tel:INSERIR_TELEFONE">INSERIR_TELEFONE</a></li> -->
+          <li><a href="https://unifil.br" target="_blank" rel="noopener">unifil.br</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p>&copy; <span data-ano>2026</span> Conexão Tech | UniFil - Centro Universitário Filadélfia</p>
+      <p>Brasões municipais reproduzidos conforme os símbolos oficiais de cada município.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Barra de ação fixa: cobre o trecho do mobile em que o conteúdo persuasivo
+     rola por várias telas sem nenhuma saída para ação. -->
+<div class="action-bar">
+  <a class="btn btn--primary" href="#cidades">Escolher minha cidade</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+        integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script src="assets/js/main.js" defer></script>
+
+</body>
+</html>
