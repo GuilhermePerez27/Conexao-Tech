@@ -1,0 +1,35 @@
+assets/logos/
+=============
+
+Dois arquivos de marca, compartilhados por TODAS as páginas do site
+(index, cambe, ibipora, arapongas, rolandia):
+
+1) unifil.png
+   Marca institucional da UniFil. Aparece no início do header fixo, no rodapé e
+   nos blocos de "Realização" de todas as páginas.
+
+2) computacao-unifil.png
+   Selo do curso de Computação da UniFil. Aparece ao lado da marca institucional,
+   no início do header fixo, e leva a https://unifil.br/pensamentocomputacional/
+
+COMO ESTES ARQUIVOS FORAM GERADOS
+---------------------------------
+Ambos vieram das imagens enviadas pelo cliente (JPEG com fundo branco). O fundo
+branco foi removido e o cinza institucional (#6f6f6f) foi convertido em branco,
+gerando a versão NEGATIVA da marca — necessária porque o site tem fundo escuro.
+O laranja oficial (#f29200) foi preservado.
+
+RECOMENDADO — SUBSTITUIR PELOS ARQUIVOS OFICIAIS
+------------------------------------------------
+Se o manual de marca tiver a versão monocromática/negativa em vetor, prefira-a:
+o resultado fica mais nítido em telas de alta densidade. Ao trocar:
+
+- Mantenha os mesmos nomes de arquivo (unifil.png, computacao-unifil.png) e
+  nenhum HTML precisa ser alterado. Se o oficial vier em SVG, salve como
+  unifil.svg e atualize o atributo src nos 5 arquivos HTML (busque por
+  "assets/logos/").
+- A altura é controlada só pelo CSS (.header-brand__logo, .logo-unifil img,
+  .header-brand--square), então qualquer proporção se ajusta sozinha.
+- Atenção ao selo computacao-unifil.png: a imagem de origem chegou RECORTADA —
+  as letras das pontas da palavra "COMPUTAÇÃO" estão cortadas. Substitua pelo
+  arquivo completo assim que possível.

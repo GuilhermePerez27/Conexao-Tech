@@ -1,0 +1,15 @@
+assets/brasoes/
+===============
+
+Brasões dos municípios, usados no loop de cidades do hero (index.html) e nas
+páginas de cada cidade.
+
+ATENÇÃO — londrina.svg é PROVISÓRIO
+-----------------------------------
+O arquivo londrina.svg é um marcador desenhado apenas para ocupar o lugar no
+layout; NÃO é o símbolo oficial do município. Substitua pelo brasão oficial da
+Prefeitura de Londrina mantendo o mesmo nome (ou salve como londrina.jpg e
+atualize o src nas duas ocorrências dentro do loop, em index.html).
+
+O tamanho é definido pelo CSS (.logo-loop__crest img), então qualquer proporção
+encaixa sem quebrar o layout.
