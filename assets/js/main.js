@@ -10,12 +10,15 @@
   /* -----------------------------------------------------------------------
      Cidades atendidas — fonte única usada pelo mapa da home.
      Coordenadas conferidas via OpenStreetMap/Nominatim.
+     "pagina" é para onde o marcador leva: as 4 cidades atendidas levam ao
+     site da própria prefeitura; Londrina leva ao Pensamento Computacional.
      -------------------------------------------------------------------- */
   var CIDADES = [
-    { nome: 'Cambé',     lat: -23.2782035, lng: -51.2779583, pagina: 'cambe.html' },
-    { nome: 'Ibiporã',   lat: -23.2684137, lng: -51.0475907, pagina: 'ibipora.html' },
-    { nome: 'Arapongas', lat: -23.4152862, lng: -51.4293961, pagina: 'arapongas.html' },
-    { nome: 'Rolândia',  lat: -23.3119901, lng: -51.3674145, pagina: 'rolandia.html' }
+    { nome: 'Londrina',  lat: -23.3103,    lng: -51.1628,    pagina: 'https://unifil.br/pensamentocomputacional/', meta: 'Sede da UniFil', rotulo: 'Ir para o programa' },
+    { nome: 'Cambé',     lat: -23.2782035, lng: -51.2779583, pagina: 'https://www.cambe.pr.gov.br/', meta: 'Prefeitura de Cambé', rotulo: 'Site da Prefeitura' },
+    { nome: 'Ibiporã',   lat: -23.2684137, lng: -51.0475907, pagina: 'https://www.ibipora.pr.gov.br/', meta: 'Prefeitura de Ibiporã', rotulo: 'Site da Prefeitura' },
+    { nome: 'Arapongas', lat: -23.4152862, lng: -51.4293961, pagina: 'https://www.arapongas.pr.gov.br/', meta: 'Prefeitura de Arapongas', rotulo: 'Site da Prefeitura' },
+    { nome: 'Rolândia',  lat: -23.3119901, lng: -51.3674145, pagina: 'https://www.rolandia.pr.gov.br/', meta: 'Prefeitura de Rolândia', rotulo: 'Site da Prefeitura' }
   ];
 
   /* -----------------------------------------------------------------------
@@ -177,87 +180,73 @@
   }
 
   /* -----------------------------------------------------------------------
-     5. Mapa das cidades atendidas (Leaflet + tiles CartoDB Dark Matter)
+     5. Mapa das cidades atendidas (Leaflet + tiles CartoDB Positron)
+
+     Sem chave de API e sem serviço pago: assets/vendor/leaflet/ é a própria
+     biblioteca, baixada e hospedada dentro do projeto, carregada por um
+     <script defer> logo antes deste arquivo em index.html. Os tiles vêm do
+     CartoDB Positron (basemaps.cartocdn.com), um estilo claro/quase branco,
+     gratuito e sem necessidade de chave.
      -------------------------------------------------------------------- */
   function initMapa() {
     var alvo = document.getElementById('mapa');
     if (!alvo) return;
 
     if (typeof L === 'undefined') {
-      alvo.innerHTML = '<p style="padding:24px;color:#96a2c2;font-size:.9rem">' +
+      // Só acontece se assets/vendor/leaflet/leaflet.js não carregar
+      // (arquivo ausente/renomeado). Evita deixar o painel vazio.
+      alvo.innerHTML = '<p style="padding:24px;color:#6b6280;font-size:.9rem">' +
         'Não foi possível carregar o mapa. Veja a lista de cidades atendidas logo abaixo.</p>';
       return;
     }
 
-    // No celular o mapa ocupa boa parte da tela e fica no caminho da rolagem:
-    // com o arraste ligado, o polegar move o mapa em vez de avançar a página.
-    // O arraste só é liberado depois de um toque deliberado — mesmo contrato
-    // usado para a roda do mouse no desktop.
-    // Detecta o dispositivo pelo tipo de ponteiro, não pela largura: quem apenas
-    // estreita a janela no desktop continua conseguindo arrastar o mapa.
-    var ehToque = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-
     var mapa = L.map(alvo, {
-      scrollWheelZoom: false,   // evita "sequestrar" a rolagem da página
-      dragging: !ehToque,
-      tap: false,
-      zoomControl: false,       // recriado abaixo com rótulos em pt-BR
-      attributionControl: true
+      scrollWheelZoom: false, // exige Ctrl/2 dedos para zoom — não sequestra a rolagem da página
+      zoomControl: true
     });
 
-    L.control.zoom({
-      position: 'topleft',
-      zoomInTitle: 'Aproximar',
-      zoomOutTitle: 'Afastar'
-    }).addTo(mapa);
-
-    if (ehToque) {
-      alvo.addEventListener('click', function liberar() {
-        mapa.dragging.enable();
-        alvo.removeEventListener('click', liberar);
-      });
-    }
-
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ' +
-        '&copy; <a href="https://carto.com/attributions">CARTO</a>',
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>',
       subdomains: 'abcd',
       maxZoom: 19
     }).addTo(mapa);
 
-    var icone = L.divIcon({
-      className: '',
-      html: '<div class="pin"><span class="pin__pulse"></span><span class="pin__dot"></span></div>',
-      iconSize: [26, 26],
-      iconAnchor: [13, 13],
-      popupAnchor: [0, -12]
+    // Ativa o zoom por scroll só depois de um Ctrl/Cmd + roda do mouse,
+    // para não sequestrar a rolagem da página quando o mouse passa por cima do mapa.
+    alvo.addEventListener('wheel', function (e) {
+      if (e.ctrlKey || e.metaKey) mapa.scrollWheelZoom.enable();
+      else mapa.scrollWheelZoom.disable();
     });
 
     var pontos = [];
 
     CIDADES.forEach(function (cidade) {
-      pontos.push([cidade.lat, cidade.lng]);
+      var posicao = [cidade.lat, cidade.lng];
+      pontos.push(posicao);
 
-      L.marker([cidade.lat, cidade.lng], {
-        icon: icone,
-        title: cidade.nome,
-        alt: 'Marcação de ' + cidade.nome + ' no mapa',
-        keyboard: true
-      })
+      var icone = L.divIcon({
+        className: '', // remove a classe/estilo padrão do Leaflet para o ícone
+        html: '<div class="pin"><span class="pin__pulse"></span><span class="pin__dot"></span></div>',
+        iconSize: [26, 26],
+        iconAnchor: [13, 13],
+        popupAnchor: [0, -13]
+      });
+
+      // Todo marcador leva a um site externo (prefeitura da cidade, ou o
+      // Pensamento Computacional no caso de Londrina), por isso sempre abre
+      // em nova aba.
+      var conteudo =
+        '<div class="popup__city">' + cidade.nome + '</div>' +
+        '<div class="popup__meta">' + cidade.meta + '</div>' +
+        '<a class="popup__link" href="' + cidade.pagina + '" target="_blank" rel="noopener">' +
+        cidade.rotulo + ' &rarr;</a>';
+
+      L.marker(posicao, { icon: icone, title: cidade.nome, alt: cidade.nome })
         .addTo(mapa)
-        .bindPopup(
-          '<div class="popup__city">' + cidade.nome + '</div>' +
-          '<div class="popup__meta">Paraná</div>' +
-          '<a class="popup__link" href="' + cidade.pagina + '">Ver página da cidade &rarr;</a>'
-        );
+        .bindPopup(conteudo, { closeButton: false });
     });
 
-    mapa.fitBounds(L.latLngBounds(pontos), { padding: [58, 58], maxZoom: 11 });
-
-    // Habilita a roda do mouse apenas depois de um clique no mapa
-    mapa.on('click', function () { mapa.scrollWheelZoom.enable(); });
-    mapa.on('mouseout', function () { mapa.scrollWheelZoom.disable(); });
+    mapa.fitBounds(pontos, { padding: [32, 32] });
   }
 
   /* -----------------------------------------------------------------------

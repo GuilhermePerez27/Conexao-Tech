@@ -29,9 +29,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
-        integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!-- Leaflet — biblioteca de mapa, hospedada localmente em assets/vendor/leaflet/
+       (sem chave de API, sem serviço externo pago). -->
+  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
 
   <link rel="stylesheet" href="assets/css/styles.css">
 
@@ -151,7 +151,7 @@
 
                 <!-- cópia técnica, apenas para o loop contínuo -->
                 <a class="logo-loop__item" href="https://unifil.br/pensamentocomputacional/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
-                  <span class="logo-loop__crest"><img src="assets/brasoes/londrina.svg" alt="" width="200" height="200" loading="lazy"></span>
+                  <span class="logo-loop__crest"><img src="assets/brasoes/londrina.jpg" alt="" width="200" height="200" loading="lazy"></span>
                   Londrina
                 </a>
                 <a class="logo-loop__item" href="cambe.html" aria-hidden="true" tabindex="-1">
@@ -181,6 +181,164 @@
   </section>
 
   <!-- ===================================================================
+       LINHA DO TEMPO — Londrinense Tech + Pensamento Computacional
+       ================================================================ -->
+  <section id="linha-do-tempo" aria-labelledby="lt-titulo">
+    <div class="lt-cabecalho">
+      <span class="lt-eyebrow">Nossa trajetória</span>
+      <h2 id="lt-titulo">Seis anos formando jovens em tecnologia</h2>
+      <p class="lt-sub">
+        Do Londrinense Tech ao Pensamento Computacional, e agora, ao Conexão Tech.
+        Cada turma formada nos aproxima de mais alunos e mais cidades.
+      </p>
+    </div>
+
+    <div class="lt-trilha" role="list">
+
+      <article class="lt-card ano-2021" role="listitem">
+        <svg class="lt-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/>
+        </svg>
+        <div class="lt-ano">2021</div>
+        <div class="lt-linha">
+          <strong>Londrinense Tech</strong>
+          <span class="lt-valor">82 formados</span>
+        </div>
+      </article>
+
+      <article class="lt-card ano-2022" role="listitem">
+        <svg class="lt-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/>
+        </svg>
+        <div class="lt-ano">2022</div>
+        <div class="lt-linha">
+          <strong>Londrinense Tech</strong>
+          <span class="lt-valor">37 formados</span>
+        </div>
+        <div class="lt-linha">
+          <strong>Pensamento Computacional</strong>
+          <span class="lt-valor">53 formados</span>
+        </div>
+        <div class="lt-total">
+          <strong>Total no ano</strong>
+          <span class="lt-valor">90</span>
+        </div>
+      </article>
+
+      <article class="lt-card ano-2023" role="listitem">
+        <svg class="lt-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/>
+        </svg>
+        <div class="lt-ano">2023</div>
+        <div class="lt-linha">
+          <strong>Londrinense Tech</strong>
+          <span class="lt-valor">120 formados</span>
+        </div>
+        <div class="lt-linha">
+          <strong>Pensamento Computacional</strong>
+          <span class="lt-valor">141 formados</span>
+        </div>
+        <div class="lt-total">
+          <strong>Total no ano</strong>
+          <span class="lt-valor">261</span>
+        </div>
+      </article>
+
+      <article class="lt-card ano-2024" role="listitem">
+        <svg class="lt-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/>
+        </svg>
+        <div class="lt-ano">2024</div>
+        <div class="lt-linha">
+          <strong>Londrinense Tech</strong>
+          <span class="lt-valor">107 formados</span>
+        </div>
+        <div class="lt-linha">
+          <strong>Pensamento Computacional</strong>
+          <span class="lt-valor">97 formados</span>
+        </div>
+        <div class="lt-total">
+          <strong>Total no ano</strong>
+          <span class="lt-valor">204</span>
+        </div>
+      </article>
+
+      <article class="lt-card ano-2025" role="listitem">
+        <svg class="lt-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/>
+        </svg>
+        <div class="lt-ano">2025</div>
+        <div class="lt-linha">
+          <strong>Londrinense Tech</strong>
+          <span class="lt-valor">159 formados</span>
+        </div>
+        <div class="lt-linha">
+          <strong>Pensamento Computacional</strong>
+          <span class="lt-valor">104 formados</span>
+        </div>
+        <div class="lt-total">
+          <strong>Total no ano</strong>
+          <span class="lt-valor">263</span>
+        </div>
+      </article>
+
+      <article class="lt-card ano-2026 andamento" role="listitem">
+        <svg class="lt-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/>
+        </svg>
+        <div class="lt-ano">2026</div>
+        <div class="lt-linha">
+          <strong>Londrinense Tech</strong>
+          <span class="lt-valor">em andamento</span>
+        </div>
+        <div class="lt-linha">
+          <strong>Pensamento Computacional</strong>
+          <span class="lt-valor">em andamento</span>
+        </div>
+        <div class="lt-total">
+          <strong>Conexão Tech chega a 4 novas cidades</strong>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- =================================================================
+         GALERIA "FORMATURAS" — 2 placeholders (um por programa).
+         TROQUE cada <span class="lt-foto__img"> pela foto real: apague o
+         SVG de dentro e coloque <img src="assets/formaturas/NOME.jpg"
+         alt="Formatura de uma turma do [Pensamento Computacional /
+         Londrinense Tech]"> no lugar. Sugestão: foto em formato paisagem
+         (proporção 16:9), pelo menos 1200px de largura, da cerimônia ou
+         turma reunida (com autorização de uso das imagens).
+         ================================================================== -->
+    <div class="lt-galeria">
+      <p class="lt-galeria__titulo">Formaturas</p>
+      <div class="lt-galeria__grade">
+
+        <figure class="lt-foto">
+          <span class="lt-foto__img" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6 10 3h4l2 3"/><circle cx="12" cy="13" r="3.4"/></svg>
+          </span>
+          <figcaption>Formatura — Pensamento Computacional</figcaption>
+        </figure>
+
+        <figure class="lt-foto">
+          <span class="lt-foto__img" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6 10 3h4l2 3"/><circle cx="12" cy="13" r="3.4"/></svg>
+          </span>
+          <figcaption>Formatura — Londrinense Tech</figcaption>
+        </figure>
+
+      </div>
+    </div>
+
+    <p class="lt-rodape">
+      Mais de 1.000 alunos já formados entre 2021 e 2025 — e o Conexão Tech leva essa
+      trajetória a Cambé, Ibiporã, Arapongas e Rolândia.
+    </p>
+  </section>
+
+  <!-- ===================================================================
        PANORAMA — números do projeto e mapa. Este conteúdo dividia o hero
        antes da nova abertura e passou a ocupar a faixa logo abaixo dele.
        ================================================================ -->
@@ -195,7 +353,7 @@
 
             <p class="hero__text">
               Uma iniciativa da <strong>UniFil</strong> em parceria com o <strong>Sebrae</strong> e com as prefeituras
-              de <strong>Cambé</strong>, <strong>Arapongas</strong>, <strong>Ibiporã</strong> e <strong>Rolândia</strong>, que leva aulas de programação a estudantes do Ensino Médio,
+              de <strong>Cambé</strong>, <strong>Arapongas</strong>, <strong>Ibiporã</strong> e <strong>Rolândia</strong>, e também presente em <strong>Londrina</strong>, sede da UniFil que leva aulas de programação a estudantes do Ensino Médio,
               despertando o interesse pela área de tecnologia e entregando conhecimento útil para o dia a dia.
             </p>
 
@@ -204,20 +362,16 @@
             <dl class="stats">
               <div class="stat">
                 <dt class="stat__label">Cidades atendidas</dt>
-                <dd class="stat__value" data-count="4">0</dd>
+                <dd class="stat__value" data-count="5">0</dd>
               </div>
               <div class="stat">
                 <dt class="stat__label">Gratuito para o aluno</dt>
                 <dd class="stat__value" data-count="100" data-suffix="%">0%</dd>
               </div>
-              <div class="stat">
-                <dt class="stat__label">Etapas até o certificado</dt>
-                <dd class="stat__value" data-count="3">0</dd>
-              </div>
             </dl>
           </div>
 
-          <!-- Mapa real das cidades atendidas (Leaflet) -->
+          <!-- Mapa real das cidades atendidas (Leaflet + tiles claros) -->
           <div class="map-panel">
             <div class="map-panel__head">
               <span class="map-panel__title">Onde estamos</span>
@@ -227,7 +381,7 @@
             <!-- role="region" e não "img": o mapa contém marcadores e controles
                  focáveis, que role="img" removeria da árvore de acessibilidade. -->
             <div id="mapa" role="region"
-                 aria-label="Mapa do norte do Paraná com marcações nas cidades de Cambé, Ibiporã, Arapongas e Rolândia."></div>
+                 aria-label="Mapa do norte do Paraná com marcações nas cidades de Londrina, Cambé, Ibiporã, Arapongas e Rolândia."></div>
 
             <p class="map-panel__note">
               Quatro cidades no norte do Paraná: Cambé, Ibiporã, Arapongas e Rolândia.
@@ -251,7 +405,7 @@
           <p class="eyebrow">Sobre o projeto</p>
           <h2 class="section-title">Tecnologia como ponte para o futuro dos estudantes</h2>
           <p class="section-lead section-lead--gap">
-            O Conexão Tech é um programa de formação gratuita em lógica e programação criado para
+            O Conexão Tech é um programa de formação gratuita em lógica de programação criado para
             aproximar o estudante do Ensino Médio do universo da tecnologia. As aulas partem do zero,
             são conduzidas por professores e monitores da UniFil e acontecem na própria cidade do aluno.
           </p>
@@ -355,9 +509,10 @@
         <p class="eyebrow">Cidades atendidas</p>
         <h2 class="section-title">Escolha a sua cidade para se inscrever</h2>
         <p class="section-lead">
-          O Conexão Tech acontece em quatro municípios do norte do Paraná. O local e a data de
+          O Conexão Tech acontece em cinco cidades do norte do Paraná. O local e a data de
           início das aulas variam de acordo com cada cidade, clique na sua para ver os detalhes
-          e acessar o formulário de inscrição.
+          e acessar o formulário de inscrição. Em Londrina, o programa já é oferecido diretamente
+          pela UniFil.
         </p>
       </div>
 
@@ -402,6 +557,24 @@
           </span>
         </a>
       </div>
+
+      <!-- Londrina não é uma cidade-satélite mobilizada pelo Conexão Tech: é a
+           sede da UniFil, onde o Pensamento Computacional já roda direto pela
+           universidade. Por isso fica fora da grade das 4 cidades e leva ao
+           site oficial do programa, em vez de uma página local. -->
+      <a class="city-card city-card--wide reveal" data-delay="4"
+         href="https://unifil.br/pensamentocomputacional/" target="_blank" rel="noopener"
+         aria-label="Londrina — inscreva-se diretamente no site do Pensamento Computacional da UniFil (abre em nova aba)">
+        <span class="crest"><img src="assets/brasoes/londrina.jpg" alt="Brasão oficial do município de Londrina" width="108" height="108" loading="lazy"></span>
+        <span class="city-card__wide-text">
+          <h3 class="city-card__name">Londrina <span class="city-card__badge">Sede da UniFil</span></h3>
+          <p class="city-card__state">O programa já é oferecido direto pelo site do Pensamento Computacional</p>
+        </span>
+        <span class="city-card__cta">
+          Ir para o programa
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
     </div>
   </section>
 
@@ -435,6 +608,10 @@
               <p class="req__text">Cambé, Ibiporã, Arapongas ou Rolândia.</p>
             </div>
           </li>
+          
+        </ul>
+
+        <ul class="req-list reveal" data-delay="1">
           <li class="req">
             <span class="req__mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.6l4.4 4.4L19 7.4" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <div>
@@ -442,9 +619,6 @@
               <p class="req__text">Usado para a inscrição e para o contato durante o curso. Recomenda-se uma conta Gmail.</p>
             </div>
           </li>
-        </ul>
-
-        <ul class="req-list reveal" data-delay="1">
           <li class="req">
             <span class="req__mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.6l4.4 4.4L19 7.4" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <div>
@@ -712,9 +886,10 @@
   <a class="btn btn--primary" href="#cidades">Escolher minha cidade</a>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
-        integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<!-- Leaflet precisa estar carregado antes de assets/js/main.js iniciar o mapa;
+     como os dois usam "defer", eles rodam nessa mesma ordem, depois do HTML
+     ser todo interpretado e antes do DOMContentLoaded. -->
+<script src="assets/vendor/leaflet/leaflet.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 
 </body>

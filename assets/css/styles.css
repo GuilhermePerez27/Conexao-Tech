@@ -125,6 +125,7 @@ img { max-width: 100%; display: block; }
 a { color: var(--teal-300); text-decoration: none; }
 a:hover { color: var(--teal-200); }
 ul { margin: 0; padding: 0; list-style: none; }
+dl, dt, dd { margin: 0; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -455,7 +456,7 @@ p { margin: 0; }
 
 .hero__stack .hero__actions { margin-bottom: 0; justify-content: center; }
 
-/* Loop infinito de logos das cidades atendidas -------------------------- */
+/* Faixa estática com as logos das cidades atendidas ---------------------- */
 .logo-loop {
   width: 100%;
   margin-top: 44px;
@@ -472,30 +473,22 @@ p { margin: 0; }
   margin-bottom: 18px;
 }
 
-/* As máscaras laterais fazem as logos surgirem e sumirem sem corte seco. */
+/* As logos ficam centralizadas, numa lista estática (sem rolagem/loop). */
 .logo-loop__viewport {
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
 }
 
 .logo-loop__track {
   display: flex;
-  width: max-content;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
   align-items: stretch;
   gap: 14px;
-  animation: logo-loop 34s linear infinite;
 }
-/* Pausa ao passar o mouse: dá tempo de ler e clicar no município desejado. */
-.logo-loop__viewport:hover .logo-loop__track,
-.logo-loop__track:focus-within { animation-play-state: paused; }
-
-/* A faixa contém duas cópias idênticas da lista; deslocar exatamente 50%
-   devolve o track à posição inicial, o que torna o loop imperceptível. */
-@keyframes logo-loop {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
+/* Cópia técnica que existia só para o loop infinito recomeçar sem emenda
+   visível — sem animação, ela é dispensável e ficaria duplicada na tela. */
+.logo-loop__track > [aria-hidden="true"] { display: none; }
 
 .logo-loop__item {
   display: inline-flex;
@@ -543,28 +536,27 @@ p { margin: 0; }
   overflow: hidden;
 }
 
-/* Quem pede menos movimento recebe a lista estática e rolável na horizontal. */
-@media (prefers-reduced-motion: reduce) {
-  .logo-loop__track { animation: none; width: 100%; flex-wrap: wrap; justify-content: center; }
-  .logo-loop__track > [aria-hidden="true"] { display: none; }
-  .logo-loop__viewport { -webkit-mask-image: none; mask-image: none; }
-}
+/* Quem pede menos movimento também não tem mais nada a desligar aqui: a
+   lista de logos já é estática por padrão (ver ".logo-loop__track" acima). */
 
 /* Estatísticas com contador animado */
 .stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 56px;
   border-top: 1px solid var(--border);
   padding-top: 28px;
 }
 
 /* O <dt> vem antes do <dd> no HTML (ordem exigida numa lista de definição);
-   a inversão visual — valor acima do rótulo — é feita aqui. */
+   a inversão visual — valor acima do rótulo — é feita aqui. Cada estatística
+   fica centralizada, e o grupo inteiro é centralizado na faixa acima. */
 .stat {
   display: flex;
   flex-direction: column-reverse;
-  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
 }
 
 .stat__value {
@@ -622,7 +614,7 @@ p { margin: 0; }
 #mapa {
   height: 430px;
   border-radius: var(--radius);
-  background: #0b0a1a;
+  background: #ffffff; /* fundo branco, pedido pelo cliente, visível como flash antes do tile carregar */
   z-index: 1; /* mantém o mapa abaixo do header fixo */
 }
 
@@ -670,23 +662,22 @@ p { margin: 0; }
   100% { transform: scale(1.5);  opacity: 0; }
 }
 
-/* Popups do Leaflet no tema do site */
-.leaflet-popup-content-wrapper {
-  background: #180e3d;
-  color: var(--text);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.8);
-}
-.leaflet-popup-content { margin: 14px 16px; font-family: var(--font-body); }
-.leaflet-popup-tip { background: #180e3d; border: 1px solid var(--border-strong); }
-.leaflet-popup-close-button { color: var(--text-muted) !important; }
-.leaflet-container a.leaflet-popup-close-button:hover { color: var(--text) !important; }
+/* Balão de informação (popup) do Leaflet — o mapa usa um estilo claro
+   (CartoDB Positron), então o conteúdo do balão (nosso HTML, injetado via
+   bindPopup) precisa de cores escuras para continuar legível sobre o fundo
+   branco que o próprio Leaflet desenha. */
+.leaflet-popup-content-wrapper { border-radius: 12px; box-shadow: var(--shadow-soft); }
+.leaflet-popup-content { margin: 14px 16px; min-width: 150px; }
+.leaflet-popup-tip { box-shadow: var(--shadow-soft); }
+.leaflet-container { font-family: var(--font-body); background: #ffffff; }
+.leaflet-control-attribution { font-size: 0.68rem; background: rgba(255, 255, 255, 0.8) !important; }
+.leaflet-control-attribution a { color: var(--indigo-700); }
 
 .popup__city {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.02rem;
+  color: #1c1330;
   margin-bottom: 2px;
 }
 .popup__meta {
@@ -694,24 +685,10 @@ p { margin: 0; }
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #6b6280;
   margin-bottom: 8px;
 }
-.popup__link { font-size: 0.9rem; font-weight: 600; }
-
-.leaflet-control-attribution {
-  background: rgba(9, 5, 24, 0.82) !important;
-  color: var(--text-muted) !important;
-  font-size: 0.68rem !important;
-}
-.leaflet-control-attribution a { color: var(--teal-300) !important; }
-
-.leaflet-bar a {
-  background: #180e3d !important;
-  color: var(--text) !important;
-  border-color: rgba(166, 240, 234, 0.2) !important;
-}
-.leaflet-bar a:hover { background: #241458 !important; }
+.popup__link { font-size: 0.9rem; font-weight: 600; color: var(--indigo-700); }
 
 /* -------------------------------------------------------------------------
    9. Cartões genéricos
@@ -850,6 +827,47 @@ p { margin: 0; }
   box-shadow: var(--shadow-soft);
   color: var(--text);
 }
+
+/* Londrina não é uma cidade-satélite: é a sede da UniFil, então o card sai
+   da grade das 4 cidades e ganha um layout horizontal de destaque, deixando
+   claro que o botão leva para fora do site (site oficial do programa). */
+.city-card--wide {
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  gap: 22px;
+  margin-top: 22px;
+  padding: 22px 28px;
+}
+.city-card--wide .crest { margin-bottom: 0; flex-shrink: 0; }
+.city-card--wide:hover { transform: translateY(-4px); }
+
+.city-card__wide-text { flex: 1 1 auto; min-width: 0; }
+.city-card__wide-text .city-card__state {
+  margin-top: 4px;
+  margin-bottom: 0;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.city-card__badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--surface-strong);
+  border: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  vertical-align: middle;
+}
+
+.city-card--wide .city-card__cta { flex-shrink: 0; }
 
 /* Medalhão claro: os brasões oficiais são desenhados para fundo claro */
 .crest {
@@ -1595,6 +1613,8 @@ p { margin: 0; }
   .about__layout { grid-template-columns: minmax(0, 1fr); }
 
   .grid--3, .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .city-card--wide { flex-direction: column; text-align: center; }
+  .city-card--wide .crest { margin-bottom: 20px; }
 
   /* Três etapas nunca devem quebrar como 2+1: isso órfã a última e destrói
      a leitura de sequência. Uma coluna mantém a trilha legível. */
@@ -1629,7 +1649,7 @@ p { margin: 0; }
   .logo-loop__item { padding: 8px 16px 8px 8px; font-size: 0.9rem; }
   .logo-loop__crest { width: 38px; height: 38px; }
 
-  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .stats { gap: 6px 28px; }
   .stat__label { font-size: 0.74rem; }
 
   #mapa { height: 320px; }
@@ -1702,4 +1722,240 @@ p { margin: 0; }
   body::before, body::after { display: none; }
   .site-header, .nav-toggle, .map-panel { display: none; }
   body { background: #fff; color: #000; }
+}
+
+/* -------------------------------------------------------------------------
+   22. Linha do tempo (Londrinense Tech + Pensamento Computacional)
+   Bloco só usado na home, entre o hero e a seção "O projeto" (#panorama).
+   Sem background próprio: usa o mesmo degradê escuro do body, como o
+   resto da página. Os cartões mantêm cor sólida própria por ano.
+   ---------------------------------------------------------------------- */
+#linha-do-tempo {
+  padding: 72px 24px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+#linha-do-tempo .lt-cabecalho {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+#linha-do-tempo .lt-eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  margin-bottom: 12px;
+}
+
+#linha-do-tempo h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  margin: 0 0 12px;
+  color: var(--text);
+  font-weight: 800;
+}
+
+#linha-do-tempo .lt-sub {
+  font-size: 16px;
+  color: var(--text-soft);
+  line-height: 1.5;
+  margin: 0;
+}
+
+#linha-do-tempo .lt-trilha {
+  display: flex;
+  gap: 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
+  padding: 8px 4px 28px;
+  scroll-snap-type: x proximity;
+}
+
+/* Barra de rolagem customizada (fina, turquesa) — Firefox e navegadores
+   baseados em WebKit/Blink usam propriedades diferentes, então as duas
+   regras convivem sem conflito. */
+#linha-do-tempo .lt-trilha {
+  scrollbar-width: thin;
+  scrollbar-color: var(--teal-400) rgba(0, 0, 0, 0.08);
+}
+
+#linha-do-tempo .lt-trilha::-webkit-scrollbar {
+  height: 6px;
+}
+
+#linha-do-tempo .lt-trilha::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+}
+
+#linha-do-tempo .lt-trilha::-webkit-scrollbar-thumb {
+  background: var(--teal-400);
+  border-radius: 999px;
+}
+
+#linha-do-tempo .lt-trilha::-webkit-scrollbar-thumb:hover {
+  background: var(--teal-300);
+}
+
+#linha-do-tempo .lt-card {
+  scroll-snap-align: start;
+  flex: 0 0 220px;
+  border-radius: 16px;
+  padding: 24px 20px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+#linha-do-tempo .lt-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+}
+
+#linha-do-tempo .lt-card .lt-ano {
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+#linha-do-tempo .lt-card .lt-icone {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 14px;
+  opacity: 0.9;
+}
+
+#linha-do-tempo .lt-card .lt-linha {
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+#linha-do-tempo .lt-card .lt-linha strong {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+  margin-bottom: 2px;
+}
+
+#linha-do-tempo .lt-card .lt-valor {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+#linha-do-tempo .lt-card .lt-total {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  font-size: 13px;
+}
+
+#linha-do-tempo .lt-card .lt-total .lt-valor {
+  font-size: 22px;
+}
+
+#linha-do-tempo .lt-card.andamento {
+  opacity: 0.92;
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+}
+
+#linha-do-tempo .lt-card.andamento .lt-valor {
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Cores por ano, seguindo a paleta de referência */
+#linha-do-tempo .lt-card.ano-2021 { background: #1f5fa6; }
+#linha-do-tempo .lt-card.ano-2022 { background: #3e7d3a; }
+#linha-do-tempo .lt-card.ano-2023 { background: #c81e5c; }
+#linha-do-tempo .lt-card.ano-2024 { background: #b5541e; }
+#linha-do-tempo .lt-card.ano-2025 { background: #3d2374; }
+#linha-do-tempo .lt-card.ano-2026 { background: #b3941a; }
+
+/* Galeria "Formaturas" — 2 fotos em formato paisagem (uma por programa);
+   fotos reais devem substituir os placeholders (ver comentário no HTML). */
+#linha-do-tempo .lt-galeria {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#linha-do-tempo .lt-galeria__titulo {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  text-align: center;
+  margin: 0 0 22px;
+}
+
+#linha-do-tempo .lt-galeria__grade {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+#linha-do-tempo .lt-foto {
+  margin: 0;
+  text-align: center;
+}
+
+#linha-do-tempo .lt-foto__img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 10px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px dashed rgba(166, 240, 234, 0.4);
+  color: var(--teal-300);
+  overflow: hidden;
+}
+
+#linha-do-tempo .lt-foto__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+#linha-do-tempo .lt-foto__img svg { width: 42px; height: 42px; opacity: 0.8; }
+
+#linha-do-tempo .lt-foto figcaption {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+#linha-do-tempo .lt-rodape {
+  max-width: 640px;
+  margin: 36px auto 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  #linha-do-tempo .lt-trilha {
+    gap: 14px;
+  }
+  #linha-do-tempo .lt-card {
+    flex-basis: 200px;
+  }
+  #linha-do-tempo .lt-galeria__grade {
+    grid-template-columns: 1fr;
+  }
 }
