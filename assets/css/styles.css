@@ -1881,8 +1881,9 @@ p { margin: 0; }
 #linha-do-tempo .lt-card.ano-2025 { background: #3d2374; }
 #linha-do-tempo .lt-card.ano-2026 { background: #b3941a; }
 
-/* Galeria "Formaturas" — 2 fotos em formato paisagem (uma por programa);
-   fotos reais devem substituir os placeholders (ver comentário no HTML). */
+/* Galeria — slideshow com fade automático entre as fotos das turmas.
+   Sem moldura/painel: é só a imagem inteira, com a legenda e a barra de
+   progresso sobrepostas nela — maior que o resto do conteúdo da seção. */
 #linha-do-tempo .lt-galeria {
   max-width: 1200px;
   margin: 40px auto 0;
@@ -1900,44 +1901,135 @@ p { margin: 0; }
   margin: 0 0 22px;
 }
 
-#linha-do-tempo .lt-galeria__grade {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
+.slide {
+  position: relative;
 }
 
-#linha-do-tempo .lt-foto {
-  margin: 0;
-  text-align: center;
-}
-
-#linha-do-tempo .lt-foto__img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.slide__viewport {
+  position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  margin: 0 0 10px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 2px dashed rgba(166, 240, 234, 0.4);
-  color: var(--teal-300);
+  height: clamp(340px, 52vw, 640px);
+  border-radius: 16px;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
 }
 
-#linha-do-tempo .lt-foto__img img {
+.slide__trilha { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+
+.slide__item {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.9s ease;
+}
+.slide__item.is-ativo { opacity: 1; visibility: visible; }
+
+.slide__item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  object-position: center 38%;
+  display: block;
+  transform: scale(1);
+  transition: transform 12s linear;
+}
+/* Zoom lento e contínuo na foto em exibição ("efeito Ken Burns"), só
+   enquanto ela está ativa — dá vida ao card sem depender de JS. */
+.slide__item.is-ativo img { transform: scale(1.09); }
+
+.slide__legenda {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 64px 26px 22px;
+  background: linear-gradient(0deg, rgba(9, 5, 24, 0.92) 10%, rgba(9, 5, 24, 0.55) 55%, transparent);
+  color: #fff;
+}
+.slide__legenda-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  margin-bottom: 6px;
+}
+.slide__legenda p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1rem + 0.8vw, 1.6rem);
+  font-weight: 700;
 }
 
-#linha-do-tempo .lt-foto__img svg { width: 42px; height: 42px; opacity: 0.8; }
+/* Setas de navegação manual */
+.slide__seta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(9, 5, 24, 0.45);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+.slide__viewport:hover .slide__seta,
+.slide__seta:focus-visible {
+  opacity: 1;
+}
+.slide__seta:hover { background: rgba(9, 5, 24, 0.7); border-color: rgba(255, 255, 255, 0.6); }
+.slide__seta svg { width: 20px; height: 20px; }
+.slide__seta--ant { left: 16px; }
+.slide__seta--prox { right: 16px; }
 
-#linha-do-tempo .lt-foto figcaption {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.4;
+/* Barra de progresso segmentada (1 segmento por foto), sobreposta no topo
+   da própria imagem — preenche sozinha enquanto a foto correspondente
+   está em exibição, e também funciona como navegação direta ao clicar. */
+.slide__progresso {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  gap: 6px;
+  padding: 16px 18px;
+  background: linear-gradient(180deg, rgba(9, 5, 24, 0.55), transparent);
+}
+.slide__seg {
+  flex: 1;
+  height: 3px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.32);
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+.slide__seg-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 999px;
+  background: var(--teal-400);
+}
+.slide__seg.is-concluido .slide__seg-fill { width: 100%; }
+.slide__seg:hover .slide__seg-fill { background: var(--teal-300); }
+
+@media (max-width: 640px) {
+  .slide__viewport { height: clamp(260px, 78vw, 420px); }
+  .slide__seta { opacity: 1; width: 36px; height: 36px; }
+  .slide__legenda { padding: 44px 16px 16px; }
+  .slide__progresso { padding: 12px 12px; }
 }
 
 #linha-do-tempo .lt-rodape {
@@ -1954,8 +2046,5 @@ p { margin: 0; }
   }
   #linha-do-tempo .lt-card {
     flex-basis: 200px;
-  }
-  #linha-do-tempo .lt-galeria__grade {
-    grid-template-columns: 1fr;
   }
 }

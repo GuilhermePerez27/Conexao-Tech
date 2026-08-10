@@ -188,8 +188,8 @@
       <span class="lt-eyebrow">Nossa trajetória</span>
       <h2 id="lt-titulo">Seis anos formando jovens em tecnologia</h2>
       <p class="lt-sub">
-        Do Londrinense Tech ao Pensamento Computacional, e agora, ao Conexão Tech.
-        Cada turma formada nos aproxima de mais alunos e mais cidades.
+        Do Londrinense Tech ao Pensamento Computacional — e agora ao Conexão Tech —
+        cada turma formada nos aproxima de mais alunos e mais cidades.
       </p>
     </div>
 
@@ -303,32 +303,80 @@
     </div>
 
     <!-- =================================================================
-         GALERIA "FORMATURAS" — 2 placeholders (um por programa).
-         TROQUE cada <span class="lt-foto__img"> pela foto real: apague o
-         SVG de dentro e coloque <img src="assets/formaturas/NOME.jpg"
-         alt="Formatura de uma turma do [Pensamento Computacional /
-         Londrinense Tech]"> no lugar. Sugestão: foto em formato paisagem
-         (proporção 16:9), pelo menos 1200px de largura, da cerimônia ou
-         turma reunida (com autorização de uso das imagens).
+         GALERIA — slideshow com fotos reais, troca automaticamente.
+         Sem moldura: a imagem ocupa o espaço inteiro, com a barra de
+         progresso e a legenda sobrepostas nela. Para adicionar/trocar uma
+         foto: duplique um <li class="slide__item"> dentro de slide__trilha,
+         ajuste o src/alt/legenda, e adicione o segmento correspondente em
+         slide__progresso (mesma ordem/quantidade). data-intervalo, no
+         data-slideshow, controla o tempo entre trocas (em milissegundos).
          ================================================================== -->
     <div class="lt-galeria">
-      <p class="lt-galeria__titulo">Formaturas</p>
-      <div class="lt-galeria__grade">
+      <p class="lt-galeria__titulo">Nossas turmas</p>
 
-        <figure class="lt-foto">
-          <span class="lt-foto__img" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6 10 3h4l2 3"/><circle cx="12" cy="13" r="3.4"/></svg>
-          </span>
-          <figcaption>Formatura — Pensamento Computacional</figcaption>
-        </figure>
+      <div class="slide" data-slideshow data-intervalo="10000"
+           role="region" aria-roledescription="carrossel" aria-label="Fotos das turmas e formaturas do Conexão Tech">
 
-        <figure class="lt-foto">
-          <span class="lt-foto__img" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6 10 3h4l2 3"/><circle cx="12" cy="13" r="3.4"/></svg>
-          </span>
-          <figcaption>Formatura — Londrinense Tech</figcaption>
-        </figure>
+        <div class="slide__viewport">
+          <div class="slide__progresso" role="tablist" aria-label="Selecionar foto">
+            <button class="slide__seg is-ativo" type="button" role="tab" aria-selected="true" aria-label="Foto 1 de 5"><span class="slide__seg-fill"></span></button>
+            <button class="slide__seg" type="button" role="tab" aria-selected="false" aria-label="Foto 2 de 5"><span class="slide__seg-fill"></span></button>
+            <button class="slide__seg" type="button" role="tab" aria-selected="false" aria-label="Foto 3 de 5"><span class="slide__seg-fill"></span></button>
+            <button class="slide__seg" type="button" role="tab" aria-selected="false" aria-label="Foto 4 de 5"><span class="slide__seg-fill"></span></button>
+            <button class="slide__seg" type="button" role="tab" aria-selected="false" aria-label="Foto 5 de 5"><span class="slide__seg-fill"></span></button>
+          </div>
 
+          <ul class="slide__trilha">
+
+            <li class="slide__item is-ativo" role="group" aria-roledescription="slide" aria-label="1 de 5">
+              <img src="assets/galeria/galeria-01-equipe-unifil.jpg" alt="Equipe do curso de Computação da UniFil reunida, todos com as mãos levantadas, em frente a um painel laranja da UniFil.">
+              <div class="slide__legenda">
+                <span class="slide__legenda-tag">Bastidores</span>
+                <p>Equipe da Computação UniFil</p>
+              </div>
+            </li>
+
+            <li class="slide__item" role="group" aria-roledescription="slide" aria-label="2 de 5">
+              <img src="assets/galeria/galeria-02-equipe-unifil.jpg" alt="Cinco integrantes da equipe da Computação UniFil posando sorrindo em frente ao painel laranja da UniFil.">
+              <div class="slide__legenda">
+                <span class="slide__legenda-tag">Bastidores</span>
+                <p>Equipe da Computação UniFil</p>
+              </div>
+            </li>
+
+            <li class="slide__item" role="group" aria-roledescription="slide" aria-label="3 de 5">
+              <img src="assets/galeria/galeria-03-formatura-pensamento-computacional.jpg" alt="Alunos no palco segurando certificados na formatura do Pensamento Computacional 2025, com o telão do evento ao fundo.">
+              <div class="slide__legenda">
+                <span class="slide__legenda-tag">Formatura 2025</span>
+                <p>Pensamento Computacional</p>
+              </div>
+            </li>
+
+            <li class="slide__item" role="group" aria-roledescription="slide" aria-label="4 de 5">
+              <img src="assets/galeria/galeria-04-formatura-pensamento-computacional.jpg" alt="Outro ângulo da formatura do Pensamento Computacional 2025, com alunos formados e plateia em primeiro plano.">
+              <div class="slide__legenda">
+                <span class="slide__legenda-tag">Formatura 2025</span>
+                <p>Pensamento Computacional</p>
+              </div>
+            </li>
+
+            <li class="slide__item" role="group" aria-roledescription="slide" aria-label="5 de 5">
+              <img src="assets/galeria/galeria-05-aula-pratica.jpg" alt="Alunos em uma aula prática de programação, sentados em computadores com exercícios de código nas telas.">
+              <div class="slide__legenda">
+                <span class="slide__legenda-tag">Em sala</span>
+                <p>Aula prática de programação</p>
+              </div>
+            </li>
+
+          </ul>
+
+          <button class="slide__seta slide__seta--ant" type="button" aria-label="Foto anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5 8 12l7 7"/></svg>
+          </button>
+          <button class="slide__seta slide__seta--prox" type="button" aria-label="Próxima foto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -353,7 +401,7 @@
 
             <p class="hero__text">
               Uma iniciativa da <strong>UniFil</strong> em parceria com o <strong>Sebrae</strong> e com as prefeituras
-              de <strong>Cambé</strong>, <strong>Arapongas</strong>, <strong>Ibiporã</strong> e <strong>Rolândia</strong>, e também presente em <strong>Londrina</strong>, sede da UniFil que leva aulas de programação a estudantes do Ensino Médio,
+              de <strong>Cambé</strong>, <strong>Arapongas</strong>, <strong>Ibiporã</strong> e <strong>Rolândia</strong> — e também presente em <strong>Londrina</strong>, sede da UniFil —, que leva aulas de programação a estudantes do Ensino Médio,
               despertando o interesse pela área de tecnologia e entregando conhecimento útil para o dia a dia.
             </p>
 
@@ -405,7 +453,7 @@
           <p class="eyebrow">Sobre o projeto</p>
           <h2 class="section-title">Tecnologia como ponte para o futuro dos estudantes</h2>
           <p class="section-lead section-lead--gap">
-            O Conexão Tech é um programa de formação gratuita em lógica de programação criado para
+            O Conexão Tech é um programa de formação gratuita em lógica e programação criado para
             aproximar o estudante do Ensino Médio do universo da tecnologia. As aulas partem do zero,
             são conduzidas por professores e monitores da UniFil e acontecem na própria cidade do aluno.
           </p>
@@ -511,7 +559,7 @@
         <p class="section-lead">
           O Conexão Tech acontece em cinco cidades do norte do Paraná. O local e a data de
           início das aulas variam de acordo com cada cidade, clique na sua para ver os detalhes
-          e acessar o formulário de inscrição. Em Londrina, o programa já é oferecido diretamente
+          e acessar o formulário de inscrição — em Londrina, o programa já é oferecido diretamente
           pela UniFil.
         </p>
       </div>
@@ -568,7 +616,7 @@
         <span class="crest"><img src="assets/brasoes/londrina.jpg" alt="Brasão oficial do município de Londrina" width="108" height="108" loading="lazy"></span>
         <span class="city-card__wide-text">
           <h3 class="city-card__name">Londrina <span class="city-card__badge">Sede da UniFil</span></h3>
-          <p class="city-card__state">O programa já é oferecido direto pelo site do Pensamento Computacional</p>
+          <p class="city-card__state">Paraná — o programa já é oferecido direto pelo site do Pensamento Computacional</p>
         </span>
         <span class="city-card__cta">
           Ir para o programa

@@ -250,7 +250,112 @@
   }
 
   /* -----------------------------------------------------------------------
-     6. Barra de ação fixa no mobile
+     6. Slideshow de fotos (linha do tempo)
+     Fade + zoom lento automáticos entre as fotos, com uma barra de
+     progresso por foto (mesma ideia de "stories") que também serve de
+     navegação direta. Pausa com o mouse/foco em cima e enquanto a aba está
+     em segundo plano — e ao pausar, guarda o tempo que já tinha passado,
+     pra continuar de onde parou em vez de reiniciar a contagem.
+     Quem pede menos movimento (prefers-reduced-motion) não recebe troca
+     automática nem zoom — só navega manualmente pelas setas/segmentos.
+     -------------------------------------------------------------------- */
+  function initSlideshow() {
+    var raiz = document.querySelector('[data-slideshow]');
+    if (!raiz) return;
+
+    var itens = Array.prototype.slice.call(raiz.querySelectorAll('.slide__item'));
+    var segmentos = Array.prototype.slice.call(raiz.querySelectorAll('.slide__seg'));
+    var btnAnt = raiz.querySelector('.slide__seta--ant');
+    var btnProx = raiz.querySelector('.slide__seta--prox');
+    if (itens.length < 2) return; // nada para trocar com 0 ou 1 foto
+
+    var intervaloMs = parseInt(raiz.dataset.intervalo, 10) || 10000;
+    var semMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var atual = itens.findIndex(function (el) { return el.classList.contains('is-ativo'); });
+    if (atual < 0) atual = 0;
+
+    var temporizador = null;
+    var restanteMs = intervaloMs;
+    var inicioCiclo = null;
+
+    function preencherBarra(indice, largura, comTransicao) {
+      var fill = segmentos[indice] && segmentos[indice].querySelector('.slide__seg-fill');
+      if (!fill) return;
+      fill.style.transition = comTransicao ? 'width ' + comTransicao + 'ms linear' : 'none';
+      fill.style.width = largura;
+    }
+
+    function mostrar(indice) {
+      atual = (indice + itens.length) % itens.length;
+      itens.forEach(function (el, i) { el.classList.toggle('is-ativo', i === atual); });
+      segmentos.forEach(function (el, i) {
+        el.classList.toggle('is-concluido', i < atual);
+        el.classList.toggle('is-ativo', i === atual);
+        el.setAttribute('aria-selected', i === atual ? 'true' : 'false');
+        if (i !== atual) preencherBarra(i, i < atual ? '100%' : '0%', null);
+      });
+      restanteMs = intervaloMs;
+      preencherBarra(atual, '0%', null);
+      void raiz.offsetWidth; // força o navegador aplicar o width:0% antes de animar
+      preencherBarra(atual, '100%', restanteMs);
+      // Quem pede menos movimento nem chega a ver essa transição em câmera
+      // lenta: a regra global de prefers-reduced-motion já zera a duração
+      // de toda transição/animação do site, incluindo esta.
+    }
+
+    function agendar() {
+      if (semMovimento) return; // troca automática desligada; navegação manual continua
+      inicioCiclo = Date.now();
+      temporizador = window.setTimeout(function () {
+        mostrar(atual + 1);
+        agendar();
+      }, restanteMs);
+    }
+
+    function parar() {
+      if (!temporizador) return;
+      window.clearTimeout(temporizador);
+      temporizador = null;
+      if (inicioCiclo) {
+        restanteMs = Math.max(0, restanteMs - (Date.now() - inicioCiclo));
+      }
+      var fill = segmentos[atual] && segmentos[atual].querySelector('.slide__seg-fill');
+      if (fill) {
+        // trava a barra exatamente na largura atual em vez de deixar a
+        // transição continuar correndo sozinha enquanto está "pausado".
+        var largadaAtual = window.getComputedStyle(fill).width;
+        fill.style.transition = 'none';
+        fill.style.width = largadaAtual;
+      }
+    }
+
+    function retomar() {
+      if (semMovimento || temporizador) return;
+      agendar();
+      preencherBarra(atual, '100%', restanteMs);
+    }
+
+    // Qualquer clique manual reinicia a contagem da foto escolhida.
+    if (btnProx) btnProx.addEventListener('click', function () { parar(); mostrar(atual + 1); agendar(); });
+    if (btnAnt) btnAnt.addEventListener('click', function () { parar(); mostrar(atual - 1); agendar(); });
+    segmentos.forEach(function (el, i) {
+      el.addEventListener('click', function () { parar(); mostrar(i); agendar(); });
+    });
+
+    raiz.addEventListener('mouseenter', parar);
+    raiz.addEventListener('mouseleave', retomar);
+    raiz.addEventListener('focusin', parar);
+    raiz.addEventListener('focusout', retomar);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) parar(); else retomar();
+    });
+
+    mostrar(atual);
+    agendar();
+  }
+
+  /* -----------------------------------------------------------------------
+     7. Barra de ação fixa no mobile
      Aparece depois que a seção de cidades passa e some quando o CTA final
      entra em tela, para não competir com ele.
      -------------------------------------------------------------------- */
@@ -276,7 +381,7 @@
   }
 
   /* -----------------------------------------------------------------------
-     7. Ano dinâmico no rodapé
+     8. Ano dinâmico no rodapé
      -------------------------------------------------------------------- */
   function initAno() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-ano]'), function (el) {
@@ -293,6 +398,7 @@
     initReveal();
     initCounters();
     initMapa();
+    initSlideshow();
     initActionBar();
     initAno();
   }
