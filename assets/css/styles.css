@@ -802,7 +802,6 @@ p { margin: 0; }
 }
 .partners__names a { color: var(--text); }
 .partners__names a:hover { color: var(--teal-200); }
-.partners__plus { color: var(--text-muted); font-weight: 400; }
 
 /* -------------------------------------------------------------------------
    11. Cidades atendidas
@@ -1168,6 +1167,7 @@ p { margin: 0; }
   color: var(--teal-300);
   margin-bottom: 16px;
 }
+.footer__title--gap { margin-top: 22px; }
 
 .footer__list { display: grid; gap: 2px; }
 .footer__list a,
@@ -1366,6 +1366,10 @@ p { margin: 0; }
    parecer menor que o wordmark ao lado. */
 .header-brand--square .header-brand__logo { height: 38px; }
 
+/* A logo da UniFil, um pouco maior que as demais em todo lugar em que
+   aparece (ver .logo-unifil mais abaixo, junto com as outras instâncias). */
+.header-brand__logo.logo-unifil { height: 40px; }
+
 /* Faixa de parceiros da home, logo abaixo do hero */
 .partner-strip {
   display: grid;
@@ -1480,35 +1484,27 @@ p { margin: 0; }
 .partners__cities {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 10px;
+  gap: 10px;
 }
 .partners__cities a {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 7px 13px;
+  justify-content: center;
+  padding: 4px;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.05);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--teal-100);
   transition: border-color 0.24s var(--ease), background-color 0.24s var(--ease),
-              color 0.24s var(--ease);
+              transform 0.24s var(--ease);
 }
 .partners__cities a:hover {
   border-color: var(--border-strong);
   background: var(--surface-strong);
-  color: var(--text);
-}
-.partners__cities svg {
-  width: 12px;
-  height: 12px;
-  flex: none;
-  opacity: 0.75;
+  transform: translateY(-2px);
 }
 
 .partners__logo { height: 26px; width: auto; display: block; }
+.partners__logo.logo-unifil { height: 32px; }
 
 /* Bloco de realização do rodapé (todas as páginas) */
 .footer__partners { margin-top: 26px; }
@@ -1526,7 +1522,7 @@ p { margin: 0; }
 .footer__partners-row a { color: var(--text); }
 .footer__partners-row a:hover { color: var(--teal-200); }
 .footer__partners-row img { height: 28px; width: auto; display: block; }
-.footer__partners-plus { color: var(--text-muted); font-weight: 400; }
+.footer__partners-row img.logo-unifil { height: 34px; }
 
 .footer__partners-note {
   margin-top: 12px;
@@ -1561,10 +1557,11 @@ p { margin: 0; }
   text-transform: uppercase;
   color: var(--text-muted);
 }
+.city-partners__label--gap { margin-top: 4px; }
 .city-partners a { color: var(--text); }
 .city-partners a:hover { color: var(--teal-200); }
 .city-partners img { height: 28px; width: auto; display: block; }
-.city-partners__plus { color: var(--text-muted); font-weight: 400; }
+.city-partners img.logo-unifil { height: 34px; }
 
 /* -------------------------------------------------------------------------
    20. Responsividade — breakpoints em 960px e 640px
@@ -1578,6 +1575,7 @@ p { margin: 0; }
   .header-brands { gap: 11px; padding-right: 14px; }
   .header-brand__logo { height: 28px; }
   .header-brand--square .header-brand__logo { height: 31px; }
+  .header-brand__logo.logo-unifil { height: 33px; }
 }
 
 @media (max-width: 960px) {
@@ -1676,6 +1674,7 @@ p { margin: 0; }
      competiriam com o nome do projeto numa faixa de 74px. */
   .header-brands { gap: 9px; padding-right: 11px; }
   .header-brand__logo { height: 22px; }
+  .header-brand__logo.logo-unifil { height: 26px; }
   .header-brand--square { display: none; }
 
   .partner-strip { padding: 22px 18px; border-radius: 14px; }
@@ -2048,3 +2047,4 @@ p { margin: 0; }
     flex-basis: 200px;
   }
 }
+
