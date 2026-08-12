@@ -53,7 +53,7 @@
   --font-mono: "JetBrains Mono", "Consolas", ui-monospace, monospace;
 
   /* Métrica */
-  --header-h: 74px;
+  --header-h: 96px;
   --radius-sm: 10px;
   --radius: 16px;
   --radius-lg: 24px;
@@ -299,17 +299,17 @@ p { margin: 0; }
 .brand {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 14px;
   margin-right: auto;
   color: var(--text);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.09rem;
+  font-size: 1.4rem;
   letter-spacing: -0.02em;
   white-space: nowrap;
 }
 .brand:hover { color: var(--text); }
-.brand__mark { width: 34px; height: 34px; flex: none; }
+.brand__mark { width: 44px; height: 44px; flex: none; }
 .brand__name span { color: var(--teal-300); }
 
 /* Navegação */
@@ -473,9 +473,12 @@ p { margin: 0; }
   margin-bottom: 18px;
 }
 
-/* As logos ficam centralizadas, numa lista estática (sem rolagem/loop). */
+/* As logos ficam centralizadas, numa lista estática (sem rolagem/loop).
+   Sem overflow:hidden aqui: esse recorte era usado só quando a faixa
+   ainda rolava (mascarava a emenda do loop infinito); sem rolagem, ele só
+   cortava a ponta de cima do pill no efeito de hover (translateY). */
 .logo-loop__viewport {
-  overflow: hidden;
+  overflow: visible;
 }
 
 .logo-loop__track {
@@ -1364,31 +1367,12 @@ p { margin: 0; }
 }
 /* O selo quadrado da Computação pede um pouco mais de altura para não
    parecer menor que o wordmark ao lado. */
-.header-brand--square .header-brand__logo { height: 38px; }
+.header-brand--square .header-brand__logo { height: 56px; }
 
 /* A logo da UniFil, um pouco maior que as demais em todo lugar em que
    aparece (ver .logo-unifil mais abaixo, junto com as outras instâncias). */
-.header-brand__logo.logo-unifil { height: 40px; }
+.header-brand__logo.logo-unifil { height: 78px; }
 
-/* Faixa de parceiros da home, logo abaixo do hero */
-.partner-strip {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 26px 40px;
-  padding: 26px 30px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-}
-
-/* A régua vertical separa realização de municípios sem exigir um segundo card */
-.partner-strip__block + .partner-strip__block {
-  padding-left: 40px;
-  border-left: 1px solid var(--border);
-}
-
-.partner-strip__label,
 .partners__label {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -1398,67 +1382,14 @@ p { margin: 0; }
   margin-bottom: 12px;
 }
 
-.partner-strip__logos {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 16px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.24rem;
-  color: var(--text);
-}
-.partner-strip__logos a { color: var(--text); }
-.partner-strip__logos a:hover { color: var(--teal-200); }
-.partner-strip__plus { color: var(--text-muted); font-weight: 400; }
-
-.logo-unifil {
-  display: inline-flex;
-  align-items: center;
-}
-.logo-unifil img {
-  height: 34px;
-  width: auto;
-  display: block;
-}
-
-/* Municípios parceiros: brasão + nome, com link para a prefeitura */
-.partner-cities {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 12px;
-}
-
-.partner-city {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 14px 7px 7px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: border-color 0.24s var(--ease), background-color 0.24s var(--ease),
-              transform 0.24s var(--ease);
-}
-.partner-city:hover {
-  color: var(--text);
-  border-color: var(--border-strong);
-  background: var(--surface-strong);
-  transform: translateY(-2px);
-}
-
 /* Medalhão claro reduzido: os brasões oficiais são feitos para fundo claro */
 .partner-city__crest {
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   flex: none;
   display: grid;
   place-items: center;
-  padding: 3px;
+  padding: 4px;
   border-radius: 50%;
   background: #fff;
   overflow: hidden;
@@ -1469,14 +1400,6 @@ p { margin: 0; }
   aspect-ratio: 1;
   object-fit: contain;
 }
-
-.partner-city__ext {
-  width: 13px;
-  height: 13px;
-  flex: none;
-  color: var(--text-muted);
-}
-.partner-city:hover .partner-city__ext { color: var(--teal-300); }
 
 /* Lista de municípios dentro do painel "Público-alvo" (sem brasão) */
 .partners__label--gap { margin-top: 20px; }
@@ -1503,8 +1426,8 @@ p { margin: 0; }
   transform: translateY(-2px);
 }
 
-.partners__logo { height: 26px; width: auto; display: block; }
-.partners__logo.logo-unifil { height: 32px; }
+.partners__logo { height: 38px; width: auto; display: block; }
+.partners__logo.logo-unifil { height: 70px; }
 
 /* Bloco de realização do rodapé (todas as páginas) */
 .footer__partners { margin-top: 26px; }
@@ -1521,8 +1444,8 @@ p { margin: 0; }
 }
 .footer__partners-row a { color: var(--text); }
 .footer__partners-row a:hover { color: var(--teal-200); }
-.footer__partners-row img { height: 28px; width: auto; display: block; }
-.footer__partners-row img.logo-unifil { height: 34px; }
+.footer__partners-row img { height: 34px; width: auto; display: block; }
+.footer__partners-row img.logo-unifil { height: 74px; }
 
 .footer__partners-note {
   margin-top: 12px;
@@ -1564,6 +1487,46 @@ p { margin: 0; }
 .city-partners img.logo-unifil { height: 34px; }
 
 /* -------------------------------------------------------------------------
+   19b. Telas grandes (min-width) — o site só tinha regras para encolher em
+   telas pequenas; a partir de 1440px o container e as marcas do cabeçalho
+   crescem também, para não sobrar um vão vazio nas laterais em monitores
+   largos. 1920px reforça mais um pouco para monitores muito grandes/4K.
+   ---------------------------------------------------------------------- */
+@media (min-width: 1440px) {
+  :root { --maxw: 1320px; --header-h: 108px; }
+
+  .header-brand--square .header-brand__logo { height: 64px; }
+  .header-brand__logo.logo-unifil { height: 92px; }
+  .brand { font-size: 1.55rem; gap: 16px; }
+  .brand__mark { width: 50px; height: 50px; }
+
+  .partners__logo { height: 44px; }
+  .partners__logo.logo-unifil { height: 82px; }
+
+  .footer__partners-row img { height: 40px; }
+  .footer__partners-row img.logo-unifil { height: 86px; }
+
+  .partner-city__crest { width: 50px; height: 50px; }
+}
+
+@media (min-width: 1920px) {
+  :root { --maxw: 1480px; --header-h: 118px; }
+
+  .header-brand--square .header-brand__logo { height: 70px; }
+  .header-brand__logo.logo-unifil { height: 102px; }
+  .brand { font-size: 1.7rem; }
+  .brand__mark { width: 56px; height: 56px; }
+
+  .partners__logo { height: 48px; }
+  .partners__logo.logo-unifil { height: 92px; }
+
+  .footer__partners-row img { height: 44px; }
+  .footer__partners-row img.logo-unifil { height: 96px; }
+
+  .partner-city__crest { width: 56px; height: 56px; }
+}
+
+/* -------------------------------------------------------------------------
    20. Responsividade — breakpoints em 960px e 640px
    ---------------------------------------------------------------------- */
 @media (max-width: 1080px) {
@@ -1574,8 +1537,8 @@ p { margin: 0; }
      logos: elas encolhem para liberar espaço horizontal. */
   .header-brands { gap: 11px; padding-right: 14px; }
   .header-brand__logo { height: 28px; }
-  .header-brand--square .header-brand__logo { height: 31px; }
-  .header-brand__logo.logo-unifil { height: 33px; }
+  .header-brand--square .header-brand__logo { height: 48px; }
+  .header-brand__logo.logo-unifil { height: 66px; }
 }
 
 @media (max-width: 960px) {
@@ -1621,24 +1584,20 @@ p { margin: 0; }
 
   .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
 
-  /* Empilha realização e municípios: a régua vertical vira horizontal */
-  .partner-strip { grid-template-columns: minmax(0, 1fr); gap: 22px; }
-  .partner-strip__block + .partner-strip__block {
-    padding-left: 0;
-    padding-top: 22px;
-    border-left: 0;
-    border-top: 1px solid var(--border);
-  }
-
   .section { padding-block: 78px; }
 }
 
 @media (max-width: 640px) {
-  :root { --header-h: 66px; }
+  :root { --header-h: 70px; }
 
   .container { padding-inline: 18px; }
   .section { padding-block: 62px; }
   .section-head { margin-bottom: 38px; }
+
+  /* Em telas bem estreitas, a marca "Conexão Tech" some do tamanho maior
+     do desktop pra sobrar espaço pra logo da UniFil e o botão de menu. */
+  .brand { gap: 10px; font-size: 1.12rem; }
+  .brand__mark { width: 34px; height: 34px; }
 
   .hero__frame { padding: 22px 18px; border-radius: 22px; }
   .hero__actions .btn { width: 100%; }
@@ -1674,26 +1633,10 @@ p { margin: 0; }
      competiriam com o nome do projeto numa faixa de 74px. */
   .header-brands { gap: 9px; padding-right: 11px; }
   .header-brand__logo { height: 22px; }
-  .header-brand__logo.logo-unifil { height: 26px; }
+  .header-brand__logo.logo-unifil { height: 54px; }
   .header-brand--square { display: none; }
 
-  .partner-strip { padding: 22px 18px; border-radius: 14px; }
-  .partner-strip__logos { font-size: 1.1rem; }
-  .logo-unifil img { height: 30px; }
-
-  /* Grade 2x2: com rolagem horizontal duas cidades ficariam escondidas fora
-     da tela, e o objetivo do bloco é justamente mostrar as quatro. */
-  .partner-cities {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-  }
-  .partner-city {
-    padding: 6px 10px 6px 6px;
-    font-size: 0.88rem;
-    gap: 8px;
-  }
-  .partner-city__crest { width: 27px; height: 27px; }
+  .partner-city__crest { width: 38px; height: 38px; }
 }
 
 /* -------------------------------------------------------------------------
