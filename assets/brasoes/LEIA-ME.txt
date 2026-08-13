@@ -1,15 +1,27 @@
 assets/brasoes/
-===============
+================
 
-Brasões dos municípios, usados no loop de cidades do hero (index.html) e nas
-páginas de cada cidade.
+Brasões oficiais dos municípios, usados no loop de cidades do hero
+(index.html), na lista "Parceria com os municípios", no card de cada
+cidade na home, e no topo de cada página de cidade.
 
-ATENÇÃO — londrina.svg é PROVISÓRIO
------------------------------------
-O arquivo londrina.svg é um marcador desenhado apenas para ocupar o lugar no
-layout; NÃO é o símbolo oficial do município. Substitua pelo brasão oficial da
-Prefeitura de Londrina mantendo o mesmo nome (ou salve como londrina.jpg e
-atualize o src nas duas ocorrências dentro do loop, em index.html).
+- cambe.png     — extraído do PDF oficial (seeklogo), só o símbolo
+                  geométrico (verde/vermelho), sem o texto "Prefeitura
+                  de Cambé".
+- ibipora.png   — extraído do SVG oficial enviado pelo cliente. A fonte
+                  original é de baixa resolução (340x98px), então esse
+                  arquivo é mais suave que os outros ao ampliar — ainda
+                  assim nítido no tamanho em que aparece no site.
+- arapongas.png — extraído do PDF oficial (seeklogo), brasão completo.
+- rolandia.png  — extraído do PDF oficial (seeklogo); a legenda
+                  "ROLÂNDIA / PARANÁ" que vinha abaixo do brasão no PDF
+                  foi cortada (o nome já aparece na faixa dentro do
+                  próprio brasão).
+- londrina.png  — extraído do PDF oficial (seeklogo), brasão completo.
+                  Substitui o marcador provisório usado antes.
 
-O tamanho é definido pelo CSS (.logo-loop__crest img), então qualquer proporção
-encaixa sem quebrar o layout.
+Todos quadrados (com espaço transparente ao redor do desenho), prontos
+pra caber nos medalhões circulares brancos usados pelo site
+(.crest, .partner-city__crest, .logo-loop__crest — o tamanho de exibição
+é sempre definido pelo CSS, então qualquer proporção próxima do quadrado
+encaixa sem quebrar o layout).
