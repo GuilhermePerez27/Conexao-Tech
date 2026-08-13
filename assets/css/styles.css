@@ -1465,14 +1465,13 @@ p { margin: 0; }
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 12px 18px;
+  gap: 12px 8px;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.05rem;
   color: var(--text);
 }
 .city-partners__label {
-  width: 100%;
   font-family: var(--font-mono);
   font-weight: 400;
   font-size: 0.72rem;
@@ -1480,11 +1479,12 @@ p { margin: 0; }
   text-transform: uppercase;
   color: var(--text-muted);
 }
-.city-partners__label--gap { margin-top: 4px; }
+.city-partners__label--gap { margin-left: 20px; }
 .city-partners a { color: var(--text); }
 .city-partners a:hover { color: var(--teal-200); }
-.city-partners img { height: 28px; width: auto; display: block; }
-.city-partners img.logo-unifil { height: 34px; }
+.city-partners img { height: 34px; width: auto; display: block; }
+.city-partners img.logo-unifil { height: 70px; }
+.city-partners .partner-city__crest { width: 42px; height: 42px; }
 
 /* -------------------------------------------------------------------------
    19b. Telas grandes (min-width) — o site só tinha regras para encolher em
@@ -1507,6 +1507,10 @@ p { margin: 0; }
   .footer__partners-row img.logo-unifil { height: 86px; }
 
   .partner-city__crest { width: 50px; height: 50px; }
+
+  .city-partners img { height: 38px; }
+  .city-partners img.logo-unifil { height: 80px; }
+  .city-partners .partner-city__crest { width: 48px; height: 48px; }
 }
 
 @media (min-width: 1920px) {
@@ -1524,6 +1528,10 @@ p { margin: 0; }
   .footer__partners-row img.logo-unifil { height: 96px; }
 
   .partner-city__crest { width: 56px; height: 56px; }
+
+  .city-partners img { height: 42px; }
+  .city-partners img.logo-unifil { height: 90px; }
+  .city-partners .partner-city__crest { width: 54px; height: 54px; }
 }
 
 /* -------------------------------------------------------------------------
@@ -1637,6 +1645,10 @@ p { margin: 0; }
   .header-brand--square { display: none; }
 
   .partner-city__crest { width: 38px; height: 38px; }
+
+  .city-partners img { height: 26px; }
+  .city-partners img.logo-unifil { height: 54px; }
+  .city-partners .partner-city__crest { width: 34px; height: 34px; }
 }
 
 /* -------------------------------------------------------------------------
