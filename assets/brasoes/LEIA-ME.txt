@@ -2,8 +2,8 @@ assets/brasoes/
 ================
 
 Brasões oficiais dos municípios, usados no loop de cidades do hero
-(index.html), na lista "Parceria com os municípios", no card de cada
-cidade na home, e no topo de cada página de cidade.
+(index.html), no card de cada cidade na home, e no topo de cada página
+de cidade.
 
 - cambe.png     — extraído do PDF oficial (seeklogo), só o símbolo
                   geométrico (verde/vermelho), sem o texto "Prefeitura
