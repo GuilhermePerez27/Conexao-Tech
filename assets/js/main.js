@@ -10,13 +10,12 @@
   /* -----------------------------------------------------------------------
      Cidades atendidas — fonte única usada pelo mapa da home.
      Coordenadas conferidas via OpenStreetMap/Nominatim.
-     "pagina" é para onde o marcador leva: as 4 cidades atendidas levam ao
+     "pagina" é para onde o marcador leva: as 3 cidades atendidas levam ao
      site da própria prefeitura; Londrina leva ao Pensamento Computacional.
      -------------------------------------------------------------------- */
   var CIDADES = [
     { nome: 'Londrina',  lat: -23.3103,    lng: -51.1628,    pagina: 'https://unifil.br/pensamentocomputacional/', meta: 'Sede da UniFil', rotulo: 'Ir para o programa' },
     { nome: 'Cambé',     lat: -23.2782035, lng: -51.2779583, pagina: 'https://www.cambe.pr.gov.br/', meta: 'Prefeitura de Cambé', rotulo: 'Site da Prefeitura' },
-    { nome: 'Ibiporã',   lat: -23.2684137, lng: -51.0475907, pagina: 'https://www.ibipora.pr.gov.br/', meta: 'Prefeitura de Ibiporã', rotulo: 'Site da Prefeitura' },
     { nome: 'Arapongas', lat: -23.4152862, lng: -51.4293961, pagina: 'https://www.arapongas.pr.gov.br/', meta: 'Prefeitura de Arapongas', rotulo: 'Site da Prefeitura' },
     { nome: 'Rolândia',  lat: -23.3119901, lng: -51.3674145, pagina: 'https://www.rolandia.pr.gov.br/', meta: 'Prefeitura de Rolândia', rotulo: 'Site da Prefeitura' }
   ];
